@@ -16,4 +16,16 @@ public class BoardController {
         return "board/notice";
     }
 
+    @GetMapping("/qna")
+    public String qna() {
+
+        return "board/qna";
+    }
+
+    @GetMapping("/review")
+    public String review() {
+
+        return "board/review";
+    }
+
 }
