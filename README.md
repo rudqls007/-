@@ -1,6 +1,6 @@
 
 ## Navigation
-- [개발 환경](#개발-환경)
+- [개발1 환경](#개발-환경)
 - [bulid.gradle](#bulid.gradle)
 
 
