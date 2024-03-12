@@ -1,18 +1,18 @@
 
 ## 🔥 Stacks 🔥
 
-
-
-
+<div>
 <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
 <br>
-DB
+<h3>DB</h3>
 <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
 <br>
-## Communication
+<h3>Communication</h3>
 <br>
-<img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white"> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+<img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
 
+</div>
 
 ## Navigation
 - [프로젝트 생성 및 개발 환경](#프로젝트-생성-및-개발-환경)
