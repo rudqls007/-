@@ -17,7 +17,7 @@
 
 ## Navigation
 - [프로젝트 생성 및 개발 환경](#프로젝트-생성-및-개발-환경)
-- [bulid.gradle](#bulid.gradle)
+- [bulid.gradle](#bulid)
 
 
 ## 프로젝트 생성 및 개발 환경
@@ -36,7 +36,7 @@
 - IDE : IntelliJ
 - DB : H2 `jdbc:h2:tcp://localhost/~/shop` MySQL `jdbc:mysql://localhost:3306/shop?serverTimezone=UTC`
 
-## bulid.gradle
+## bulid
 
 	plugins {
 		id 'java'
