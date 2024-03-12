@@ -1,5 +1,5 @@
 
-## Stacks 
+## 🔥 Stacks 🔥
 
 
 
@@ -8,13 +8,10 @@
 <br>
 ### DB
 <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
-H2
-
 <br>
 ### Communication
 <br>
-<img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
-<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+<img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white"> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
 
 
 ## Navigation
