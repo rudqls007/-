@@ -36,7 +36,7 @@
 - IDE : IntelliJ
 - DB : H2 `jdbc:h2:tcp://localhost/~/shop` MySQL `jdbc:mysql://localhost:3306/shop?serverTimezone=UTC`
 
-## bulid.gradle  
+## bulid.gradle
 
 	plugins {
 		id 'java'
