@@ -55,6 +55,55 @@
 
 ## bulid
 
-	plugin팅
+	plugins {
+		id 'java'
+		id 'org.springframework.boot' version '3.2.3'
+		id 'io.spring.dependency-management' version '1.1.4'
+	}
+	
+	group = 'toy'
+	version = '0.0.1-SNAPSHOT'
+	
+	java {
+		sourceCompatibility = '17'
+	}
+	
+	configurations {
+		compileOnly {
+			extendsFrom annotationProcessor
+		}
+	}
+	
+	repositories {
+		mavenCentral()
+	}
+	
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+		implementation 'org.springframework.boot:spring-boot-starter-web'
+		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+		implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7'
+	
+		// QueryDSL
+		implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+		annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+		annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+		annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+	
+		runtimeOnly 'com.h2database:h2'
+		runtimeOnly 'com.mysql:mysql-connector-j'
+	
+		compileOnly 'org.projectlombok:lombok'
+		annotationProcessor 'org.projectlombok:lombok'
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	}
+	
+	tasks.named('test') {
+		useJUnitPlatform()
+	}
 
+	
+## 개발 기간 및 작업 관리
+
+## 트러블 슈팅
 ## 페이지 별 기능
