@@ -22,9 +22,18 @@
 </div>
 
 ## ➤ Navigation
+- [프로젝트 소개](#프로젝트-소개)
 - [프로젝트 생성 및 개발 환경](#프로젝트-생성-및-개발-환경)
 - [bulid.gradle](#bulid)
+- [개발 기간 및 작업 관리](#개발-기간-및-작업-관리)
+- [트러블 슈팅](#트러블-슈팅)
+- [페이지 별 기능](#페이지-별-기능)
 
+## 프로젝트 소개
+- SpringBoot와 JPA를 통해 이커머스 쇼핑 웹 사이트를 개발합니다.
+- 기존 HTML코드를 변경하지 않고 경제적으로 유지보수 하기 쉬운 Thymeleaf를 사용해 페이지를 구현합니다.
+- 스프링 시큐리티를 이용하여 회원 가입 및 로그인을 구현하고 관리자 페이지에 접근 관한을 부여하는 서비스를 제공합니다.
+-  
 
 ## 프로젝트 생성 및 개발 환경
 - 'https://start.spring.io/' 프로젝트 생성
@@ -46,50 +55,6 @@
 
 ## bulid
 
-	plugins {
-		id 'java'
-		id 'org.springframework.boot' version '3.2.3'
-		id 'io.spring.dependency-management' version '1.1.4'
-	}
-	
-	group = 'toy'
-	version = '0.0.1-SNAPSHOT'
-	
-	java {
-		sourceCompatibility = '17'
-	}
-	
-	configurations {
-		compileOnly {
-			extendsFrom annotationProcessor
-		}
-	}
-	
-	repositories {
-		mavenCentral()
-	}
-	
-	dependencies {
-		implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-		implementation 'org.springframework.boot:spring-boot-starter-web'
-		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	
-		// QueryDSL
-		implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
-		annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
-		annotationProcessor "jakarta.annotation:jakarta.annotation-api"
-		annotationProcessor "jakarta.persistence:jakarta.persistence-api"
-	
-		runtimeOnly 'com.h2database:h2'
-		runtimeOnly 'com.mysql:mysql-connector-j'
-	
-		compileOnly 'org.projectlombok:lombok'
-		annotationProcessor 'org.projectlombok:lombok'
-		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	}
-	
-	tasks.named('test') {
-		useJUnitPlatform()
-	}
+	plugin팅
 
-
+## 페이지 별 기능
