@@ -2,8 +2,12 @@
 ## 🔥 Stacks 🔥
 
 <div align="center">
+<h3>Language</h3>
+<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
+<br>
 <h3>Framework</h3>
 <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
+<img src="https://img.shields.io/badge/hibernate-59666C?style=for-the-badge&logo=hibernate&logoColor=white">
 <br>
 <h3>DB</h3>
 <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
@@ -20,7 +24,7 @@
 - [bulid.gradle](#bulid)
 
 
-## ➤ 프로젝트 생성 및 개발 환경
+## 프로젝트 생성 및 개발 환경
 - 'https://start.spring.io/' 프로젝트 생성
     - SpringBoot `3.2.3`
     - Gradle Groovy `7.6.1`
@@ -38,7 +42,7 @@
    - H2 `jdbc:h2:tcp://localhost/~/shop`
    - MySQL `jdbc:mysql://localhost:3306/shop?serverTimezone=UTC`
 
-## ➤ bulid
+## bulid
 
 	plugins {
 		id 'java'
