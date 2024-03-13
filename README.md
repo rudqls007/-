@@ -15,12 +15,12 @@
 
 </div>
 
-## Navigation
+## ➤ Navigation
 - [프로젝트 생성 및 개발 환경](#프로젝트-생성-및-개발-환경)
 - [bulid.gradle](#bulid)
 
 
-## 프로젝트 생성 및 개발 환경
+## ➤ 프로젝트 생성 및 개발 환경
 - 'https://start.spring.io/' 프로젝트 생성
     - SpringBoot `3.2.3`
     - Gradle Groovy `7.6.1`
@@ -38,7 +38,7 @@
    - H2 `jdbc:h2:tcp://localhost/~/shop`
    - MySQL `jdbc:mysql://localhost:3306/shop?serverTimezone=UTC`
 
-## bulid
+## ➤ bulid
 
 	plugins {
 		id 'java'
