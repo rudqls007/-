@@ -1,4 +1,4 @@
-[Thymeleaf 기능]([https://www.notion.so/Thymeleaf-95c99f7120774d7c928bf2baf478507e?pvs=4](https://www.notion.so/Thymeleaf-95c99f7120774d7c928bf2baf478507e?pvs=4))
+#### [타임리프 기능]([https://www.notion.so/JPA-230b608836894c02a50c75f1ecc0f81e](https://www.notion.so/Thymeleaf-95c99f7120774d7c928bf2baf478507e?pvs=4))
 
 
 ## 🔧 Stacks
