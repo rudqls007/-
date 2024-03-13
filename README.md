@@ -96,6 +96,9 @@
 		annotationProcessor "jakarta.annotation:jakarta.annotation-api"
 		annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 	
+		// Spring-boot-devtools
+		developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	
 		runtimeOnly 'com.h2database:h2'
 		runtimeOnly 'com.mysql:mysql-connector-j'
 	
@@ -107,6 +110,8 @@
 	tasks.named('test') {
 		useJUnitPlatform()
 	}
+
+
 
 	
 ## 개발 기간 
