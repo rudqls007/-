@@ -8,7 +8,7 @@ body {
 
 /* header */
 .dropdown-menu{
-    opacity: 0.5;
+    opacity: 0.7;
 }
 
 /* footer */
@@ -37,19 +37,20 @@ body {
 li {
     list-style:none;
 }
-a:link {
+/*.dropdown-item:hover{*/
+/*    color: black;*/
+/*}*/
+
+.navi-link:link {
     color: white;
     text-decoration: none;
 }
-a:visited {
+.navi-link:visited {
     color: white;
     text-decoration: none;
 }
-a:hover {
-    color: blue;
-    text-decoration: none;
-}
-a:active {
+
+.navi-link:active {
     color: white;
     text-decoration: none;
 }

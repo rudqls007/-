@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layouts/layout1}">
 <head>
     <meta charset="UTF-8">
-    <title>REVIEW</title>
+    <title>Q&A</title>
 </head>
 <body>
 
-<div th:insert="~{fragments/header}"></div>
-
-
-
-
-<div th:insert="~{fragments/footer}"></div>
-
+<div layout:fragment="content">
+    본문 영역입니다.
+</div>
 
 </body>
 </html>
