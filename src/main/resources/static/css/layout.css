@@ -1,0 +1,55 @@
+body {
+    padding-top: 5rem;
+}
+.starter-template {
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+
+/* header */
+.dropdown-menu{
+    opacity: 0.5;
+}
+
+/* footer */
+.footer {
+    background-color: #f8f9fa;
+    padding: 40px 0;
+    text-align: center;
+}
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.contact-info, .quick-links, .social-links {
+    flex: 1;
+    margin: 0 20px;
+}
+.social-links ul {
+    list-style-type: none;
+    padding: 0;
+}
+.social-links ul li {
+    display: inline-block;
+    margin-right: 10px;
+}
+li {
+    list-style:none;
+}
+a:link {
+    color: white;
+    text-decoration: none;
+}
+a:visited {
+    color: white;
+    text-decoration: none;
+}
+a:hover {
+    color: blue;
+    text-decoration: none;
+}
+a:active {
+    color: white;
+    text-decoration: none;
+}

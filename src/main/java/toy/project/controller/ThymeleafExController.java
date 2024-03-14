@@ -95,4 +95,9 @@ public class ThymeleafExController {
         return "thymeleafEx/thymeleafExParam";
 
     }
+
+    @GetMapping("/ex07")
+    public String thymeleafExLayout() {
+        return "thymeleafEx/thymeleafLayoutEx";
+    }
 }
