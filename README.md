@@ -131,7 +131,7 @@ SpringBoot 3.2.3 버전에서 Spring Security의 WebSecurityConfigurationAdater�
 Spring 공식 홈페이지에서 Spring Security 5.7.1 이상 또는 Spring Boot 2.7.0 이상부터는 사용되지 않는다고 함.
 
 3. 문제 해결 시도
-- WebSecurityConfigurerAdapter 에 대한 구글링 및 Spring Security 공식 문서 참
+- WebSecurityConfigurerAdapter 에 대한 구글링 및 Spring Security 공식 문서 참고
 
 4. 해결 방법
 - Before
@@ -179,20 +179,7 @@ Spring 공식 홈페이지에서 Spring Security 5.7.1 이상 또는 Spring Boot
 		        ;
 		
 		        http.authorizeRequests()
-		                .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
-		                .requestMatchers("/", "/members/**", "/item/**", "/images/**").permitAll()
-		                .requestMatchers("/admin/**").hasRole("ADMIN")
-		                .anyRequest().authenticated()
-		        ;
-		
-		        http.exceptionHandling()
-		                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
-		        ;
-		
-		        return http.build();
-		    }
-		
-		    /* 비밀번호를 데이터베이스에 그대로 젖장했을 경우, 데이터베이스가 해킹 당하면 고객의 회원 정보가 그대로 노출됨.
+		            저장했을 경우, 데이터베이스가 해킹 당하면 고객의 회원 정보가 그대로 노출됨.
 		    *  이를 해결하기 위해 BCryptPasswordEncoder의 해시 함수를 이용해서 비밀번호를 암호화하여 저장하고 @Bean으로 등록 */
 		    @Bean
 		    public PasswordEncoder passwordEncoder() {
