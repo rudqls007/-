@@ -120,6 +120,8 @@
 
 ## 트러블 슈팅
 
+⛔ WebSecurityConfigurationAdater 상속 오류
+
 1. 문제 발생
 - WebSecurityConfigurationAdater 상속 오류
 SpringBoot 3.2.3 버전에서 Spring Security의 WebSecurityConfigurationAdater를 SecurityConfig 클래스에서 상속 받으려고 할 때 오류가 발생
