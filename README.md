@@ -120,4 +120,74 @@
 
 ## 트러블 슈팅
 
+⛔ WebSecurityConfigurationAdater 상속 오류
+
+1. 문제 발생
+- WebSecurityConfigurationAdater 상속 오류
+SpringBoot 3.2.3 버전에서 Spring Security의 WebSecurityConfigurationAdater를 SecurityConfig 클래스에서 상속 받으려고 할 때 오류가 발생
+
+2. 문제 원인
+- WebSecurityConfigurerAdapter 유형 Deprecated
+Spring 공식 홈페이지에서 Spring Security 5.7.1 이상 또는 Spring Boot 2.7.0 이상부터는 사용되지 않는다고 함.
+
+3. 문제 해결 시도
+- WebSecurityConfigurerAdapter 에 대한 구글링 및 Spring Security 공식 문서 참고
+
+4. 해결 방법
+- Before
+  
+	  @Configuration
+		public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+		    @Override
+		    protected void configure(HttpSecurity http) throws Exception {
+			http
+			    .authorizeHttpRequests((authz) -> authz
+				.anyRequest().authenticated()
+			    )
+			    .httpBasic(withDefaults());
+		    }
+
+- After
+
+  
+		package toy.project.config;
+		
+		import org.springframework.context.annotation.Bean;
+		import org.springframework.context.annotation.Configuration;
+		import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+		import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+		import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+		import org.springframework.security.crypto.password.PasswordEncoder;
+		import org.springframework.security.web.SecurityFilterChain;
+		import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+		
+		@Configuration
+		@EnableWebSecurity
+		public class SecurityConfig  {
+	
+		    @Bean
+		    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		        http.formLogin()
+		                .loginPage("/members/login")
+		                .defaultSuccessUrl("/")
+		                .usernameParameter("email")
+		                .failureUrl("/members/login/error")
+		                .and()
+		                .logout()
+		                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
+		                .logoutSuccessUrl("/")
+		        ;
+		
+		        http.authorizeRequests()
+		            저장했을 경우, 데이터베이스가 해킹 당하면 고객의 회원 정보가 그대로 노출됨.
+		    *  이를 해결하기 위해 BCryptPasswordEncoder의 해시 함수를 이용해서 비밀번호를 암호화하여 저장하고 @Bean으로 등록 */
+		    @Bean
+		    public PasswordEncoder passwordEncoder() {
+		        return new BCryptPasswordEncoder();
+		    }
+		}
+
+변경 전 방식은 상속을 받아 메서드를 오버라이딩해서 설정하고 클래스 내부에 설정 정보를 저장하는 반면에,
+변경 후 방식은 모든 것들을 Bean으로 등록해서 스프링 컨테이너가 직접 관리할 수 있도록 변경이 되었음.
+
 ## 페이지 별 기능
