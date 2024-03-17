@@ -1,20 +1,27 @@
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+}
 body {
-    padding-top: 5rem;
+    min-height: 100%;
 }
-.starter-template {
-    padding: 3rem 1.5rem;
-    text-align: center;
-}
-
 /* header */
+
 .dropdown-menu{
     opacity: 0.7;
 }
 
+
 /* footer */
 .footer {
     background-color: #f8f9fa;
-    padding: 40px 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 15px 0;
     text-align: center;
 }
 .footer-container {
