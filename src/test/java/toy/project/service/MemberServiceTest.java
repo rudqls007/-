@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,7 @@ class MemberServiceTest {
     public Member createMember() {
         MemberFromDto memberFromDto = new MemberFromDto();
         memberFromDto.setName("이경빈");
+        memberFromDto.setLoginId("rudqls007");
         memberFromDto.setEmail("dlrudqls55@naver.com");
         memberFromDto.setAddress("서울시 강남구 언주로");
         memberFromDto.setPassword("55555");
@@ -41,6 +43,7 @@ class MemberServiceTest {
 
 
         assertThat(member.getName()).isEqualTo(savedMember.getName());
+        assertThat(member.getLoginId()).isEqualTo(savedMember.getLoginId());
         assertThat(member.getEmail()).isEqualTo(savedMember.getEmail());
         assertThat(member.getAddress()).isEqualTo(savedMember.getAddress());
         assertThat(member.getPassword()).isEqualTo(savedMember.getPassword());
@@ -60,8 +63,10 @@ class MemberServiceTest {
             memberService.saveMember(member2);
         });
 
-        assertEquals("이미 가입 된 회원입니다.", e.getMessage());
+        assertEquals("이미 가입된 회원입니다.", e.getMessage());
     }
+
+
 
 
 }

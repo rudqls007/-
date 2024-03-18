@@ -10,8 +10,9 @@ import toy.project.dto.MemberFromDto;
 * 회원 정보를 저장하는 Member 엔티티
 * 관리할 회원 정보
 * 이름
-* 이메일
+* 아이디
 * 비밀번호
+* 이메일
 * 주소
 * 역할 */
 @Entity
@@ -24,12 +25,15 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
-    /* 이메일을 통해 회원을 구분하기 위해 동일한 값이 DB에 저장될 수 없도록 unique 속성을 지정함. */
+    /* ID 통해 회원을 구분하기 위해 동일한 값이 DB에 저장될 수 없도록 unique 속성을 지정함. */
     @Column(unique = true)
-    private String email;
+    private String loginId;
+
+    private String name;
 
     private String password;
+
+    private String email;
 
     private String address;
 
@@ -41,6 +45,7 @@ public class Member {
     /* Member 엔티티를 생성하는 메소드 회원가입 메소드를 만들어서 관리를 한다면 코드가 변경되더라도 한 군데만 수정하면 되는 이점이 있음. */
     public static Member createMember(MemberFromDto memberFromDto, PasswordEncoder passwordEncoder) {
         Member member = new Member();
+        member.setLoginId(memberFromDto.getLoginId());
         member.setName(memberFromDto.getName());
         member.setEmail(memberFromDto.getEmail());
         member.setAddress(memberFromDto.getAddress());
