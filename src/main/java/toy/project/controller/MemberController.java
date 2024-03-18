@@ -20,4 +20,9 @@ public class MemberController {
         model.addAttribute("memberFromDto", new MemberFromDto());
         return "member/memberForm";
     }
+
+    @GetMapping("/list")
+    public String list() {
+        return "member/list";
+    }
 }

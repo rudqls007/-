@@ -6,6 +6,12 @@ html {
 body {
     min-height: 100%;
 }
+
+
+li {
+    list-style:none;
+}
+
 /* header */
 
 .dropdown-menu{
@@ -15,38 +21,8 @@ body {
 
 /* footer */
 .footer {
-    background-color: #f8f9fa;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
     padding: 15px 0;
-    text-align: center;
 }
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-.contact-info, .quick-links, .social-links {
-    flex: 1;
-    margin: 0 20px;
-}
-.social-links ul {
-    list-style-type: none;
-    padding: 0;
-}
-.social-links ul li {
-    display: inline-block;
-    margin-right: 10px;
-}
-li {
-    list-style:none;
-}
-/*.dropdown-item:hover{*/
-/*    color: black;*/
-/*}*/
 
 .navi-link:link {
     color: white;
@@ -60,4 +36,13 @@ li {
 .navi-link:active {
     color: white;
     text-decoration: none;
+}
+
+@media (max-width: 767px), (max-width: 991px) {
+.footer1{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
 }
