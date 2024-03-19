@@ -4,11 +4,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
-import toy.project.dto.MemberFromDto;
+import toy.project.dto.MemberFormDto;
 import toy.project.entity.Member;
 
 import static org.assertj.core.api.Assertions.*;
@@ -26,7 +25,7 @@ class MemberServiceTest {
     PasswordEncoder passwordEncoder;
 
     public Member createMember() {
-        MemberFromDto memberFromDto = new MemberFromDto();
+        MemberFormDto memberFromDto = new MemberFormDto();
         memberFromDto.setName("이경빈");
         memberFromDto.setLoginId("rudqls007");
         memberFromDto.setEmail("dlrudqls55@naver.com");

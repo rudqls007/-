@@ -1,6 +1,11 @@
 package toy.project.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import toy.project.entity.Member;
@@ -22,7 +27,8 @@ import toy.project.repository.MemberRepository;
  * 빈에 생성자가 1개일 때만 @Autowired 없이 의존성 주입이 가능함.
  */
 @RequiredArgsConstructor
-public class MemberService {
+@Slf4j
+public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
@@ -36,5 +42,22 @@ public class MemberService {
         if (findMember != null) {
             throw new IllegalArgumentException("이미 가입된 회원입니다.");
         }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
+
+        Member member = memberRepository.findByLoginId(loginId);
+
+        if (member == null) {
+            throw new UsernameNotFoundException(loginId);
+        }
+        /* UserDetail을 구현하고 있는 User 객체를 반환해줌.
+        *  User 객체를 생성하기 위해서 생성자로 회원의 아이디, 비밀번호, role을 파라미터로 넘겨줌.*/
+        return User.builder()
+                .username(member.getLoginId())
+                .password(member.getPassword())
+                .roles(member.getRole().toString())
+                .build();
     }
 }

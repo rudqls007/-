@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import toy.project.constant.Role;
-import toy.project.dto.MemberFromDto;
+import toy.project.dto.MemberFormDto;
 
 /*
 * 회원 정보를 저장하는 Member 엔티티
@@ -43,7 +43,7 @@ public class Member {
     private Role role;
 
     /* Member 엔티티를 생성하는 메소드 회원가입 메소드를 만들어서 관리를 한다면 코드가 변경되더라도 한 군데만 수정하면 되는 이점이 있음. */
-    public static Member createMember(MemberFromDto memberFromDto, PasswordEncoder passwordEncoder) {
+    public static Member createMember(MemberFormDto memberFromDto, PasswordEncoder passwordEncoder) {
         Member member = new Member();
         member.setLoginId(memberFromDto.getLoginId());
         member.setName(memberFromDto.getName());
