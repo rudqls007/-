@@ -62,9 +62,9 @@
 ## bulid
 
 	plugins {
-		id 'java'
-		id 'org.springframework.boot' version '3.2.3'
-		id 'io.spring.dependency-management' version '1.1.4'
+	id 'java'
+	id 'org.springframework.boot' version '3.2.3'
+	id 'io.spring.dependency-management' version '1.1.4'
 	}
 	
 	group = 'toy'
@@ -86,30 +86,45 @@
 	
 	dependencies {
 		implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-		implementation 'org.springframework.boot:spring-boot-starter-web'
-		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-		implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7'
-	
-		// QueryDSL
-		implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
-		annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
-		annotationProcessor "jakarta.annotation:jakarta.annotation-api"
-		annotationProcessor "jakarta.persistence:jakarta.persistence-api"
-	
-		// Spring-boot-devtools
-		developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	
-		runtimeOnly 'com.h2database:h2'
-		runtimeOnly 'com.mysql:mysql-connector-j'
-	
-		compileOnly 'org.projectlombok:lombok'
-		annotationProcessor 'org.projectlombok:lombok'
-		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// Thymeleaf Layout Dialect
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+
+	// spring-security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	// Bean Validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7'
+
+	// QueryDSL
+	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+	annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+
+	// Spring-boot-devtools
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+
+
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	}
 	
 	tasks.named('test') {
 		useJUnitPlatform()
 	}
+
+
 
 
 
@@ -189,5 +204,55 @@ Spring 공식 홈페이지에서 Spring Security 5.7.1 이상 또는 Spring Boot
 
 변경 전 방식은 상속을 받아 메서드를 오버라이딩해서 설정하고 클래스 내부에 설정 정보를 저장하는 반면에,
 변경 후 방식은 모든 것들을 Bean으로 등록해서 스프링 컨테이너가 직접 관리할 수 있도록 변경이 되었음.
+
+⛔ SecurityConfig -> SecurityFilterChain http.formLogin(), and(), logout() is deprecated and marked for removal
+
+1. 문제 발생
+- http.formLogin(), and(), logout() is deprecated and marked for removal
+
+2. 문제 원인
+- 6.1 버전부터 Before 문법은 사용할 수 없다고 함.
+
+3. 문제 해결 시도
+
+- Spring Security 공식 문서 참고 ( https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/form.html )
+- SecurityFilterChain 구글링
+
+4. 해결 방법
+
+- Before
+		
+		@Bean
+		public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http.formLogin()
+			.loginPage("/members/login")
+			.defaultSuccessUrl("/")
+			.usernameParameter("email")
+			.failureUrl("/members/login/error")
+			.and()
+			.logout()
+			.logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
+			.logoutSuccessUrl("/");
+		}
+
+- After
+  
+		@Bean
+		public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		
+		
+		http.formLogin((formLogin) -> formLogin
+			.usernameParameter("loginId")
+			.failureUrl("/members/login/error")
+			.loginPage("/member/login")
+			.defaultSuccessUrl("/"))
+			.logout((logout) -> logout
+			.logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
+			.logoutSuccessUrl("/"));
+		
+		return http.build();
+
+  		}
+
 
 ## 페이지 별 기능
