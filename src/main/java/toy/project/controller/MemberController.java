@@ -26,7 +26,7 @@ public class MemberController {
 
     @GetMapping("/new")
     public String memberForm(Model model) {
-        model.addAttribute("memberFromDto", new MemberFormDto());
+        model.addAttribute("memberFormDto", new MemberFormDto());
         return "member/memberForm";
     }
 
@@ -56,7 +56,6 @@ public class MemberController {
 
     @GetMapping("/login/error")
     public String loginError(Model model) {
-        log.info("ㅊㅊ");
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호가 맞지 않습니다.");
         return "/member/memberLoginForm";
     }

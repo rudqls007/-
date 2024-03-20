@@ -4,17 +4,69 @@
       layout:decorate="~{/layouts/default_layout}">
 <head>
   <meta charset="UTF-8">
-  <th:block layout:fragment="css">
-    <style>
-      .container {
-        max-width: 560px;
-      }
-      .field-error {
-        border-color: #dc3545;
-        color: #dc3545;
-      }
-    </style>
-  </th:block>
+    <th:block layout:fragment="css">
+        <style>
+          .container {
+            max-width: 560px;
+          }
+          .fieldError {
+            border-color: #dc3545;
+            color: #dc3545;
+          }
+        </style>
+    </th:block>
+    <th:block layout:fragment="script">
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script type="text/javascript">
+             let isCertification = false;
+            function sendNumber(){
+                $("#mail_number").css("display","block");
+                $.ajax({
+                    url:"/mail",
+                    type:"post",
+                    crossDomain: true,
+                    headers: {  'Access-Control-Allow-Origin': 'http://The web site allowed to access' },
+                    dataType:"json",
+                    data:{"mail" : $("#mail").val()},
+                    success: function(data){
+                        alert("인증 번호 발송");
+                        $("#confirm").attr("value",data);
+                        isCertification=false;
+                    },
+                    error:function(request, status, error){
+                        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                    }
+            });
+            }
+            
+            function blank() {
+
+                
+            }
+
+            function confirmNumber(){
+                let number1 = $("#number").val();
+                let number2 = $("#confirm").val();
+
+                const $resultMsg = $('#mail-check-warn');
+
+                if (number1 === undefined || number1 === null || number1 === '') {
+                    alert("인증 번호를 입력해주세요.");
+                }
+                if (number1 == number2 && number1 !== null && number1 !== '') {
+                    $resultMsg.html("인증 성공");
+                    $resultMsg.css('color', 'blue');
+                    isCertification=true
+                }else {
+                    $resultMsg.html("인증 번호 불일치");
+                    $resultMsg.css('color', 'red');
+                    isCertification=false;
+                }
+
+            }
+        </script>
+    </th:block>
   <title>회원 가입</title>
 </head>
 <div layout:fragment="content">
@@ -23,35 +75,40 @@
       <h2>회원 가입</h2>
     </div>
     <h4 class="mb-3">회원 정보 입력</h4>
-    <form th:action th:object="${memberFromDto}" method="post">
+    <form th:action th:object="${memberFormDto}" method="post">
         <div>
           <label th:for="name">NAME</label>
-          <input type="text" th:field="*{name}" class="form-control" th:errorclass="field-error"
-                 placeholder="이름을 입력해주세요.">
+          <input type="text" th:field="*{name}" class="form-control mt-2 mb-2" th:errorclass="field-error" placeholder="이름을 입력해주세요.">
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect data</p>
         </div>
         <div>
             <label th:for="name">ID</label>
-            <input type="text" th:field="*{loginId}" class="form-control" th:errorclass="field-error"
-                   placeholder="이름을 입력해주세요.">
-            <div class="field-error" th:errors="*{loginId}"></div>
+            <input type="text" th:field="*{loginId}" class="form-control mt-2 mb-2" th:errorclass="field-error" placeholder="이름을 입력해주세요.">
+            <p th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}" class="fieldError">Incorrect data</p>
         </div>
         <div>
           <label th:for="password">PASSWORD</label>
-          <input type="text" th:field="*{password}" class="form-control" th:errorclass="field-error"
-                 placeholder="비밀번호을 입력해주세요.">
-          <div class="field-error" th:errors="*{password}"></div>
+          <input type="text" th:field="*{password}" class="form-control mt-2 mb-2" th:errorclass="field-error" placeholder="비밀번호을 입력해주세요.">
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
         </div>
         <div>
-            <label th:for="emailId">EMAILL ID</label>
-            <input type="text" th:field="*{email}" class="form-control" th:errorclass="field-error"
-                   placeholder="이메일을 입력해주세요.">
-            <div class="field-error" th:errors="*{email}"></div>
+            <label th:for="email">EMAIL</label>
+            <input type="email" th:field="*{email}" name="mail", id="mail" class="form-control mt-2 mb-2" th:errorclass="field-error" placeholder="이메일을 입력해주세요.">
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary btn-sm mt-2 mb-2" id="sendBtn" name="sendBtn" onclick="sendNumber()">인증번호 발송</button>
+        </div>
+        <div class="mt-2 mb-2" id="mail_number" name="mail_number" style="display: none">
+            <input class="form-control" type="text" id="number" name="number" style="width: 250px; margin-top: -10px" placeholder="인증 번호를 입력해주세요.">
+            <span id="mail-check-warn"></span>
+            <button type="button" class="btn btn-primary btn-sm mt-2 mb-2" id="confirmBtn" name="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
+            <input type="text" id="confirm" name="confirm" style="display: none" value="">
         </div>
         <div>
           <label th:for="adress">ADDRESS</label>
-          <input type="text" th:field="*{address}" class="form-control" th:errorclass="field-error"
+          <input type="text" th:field="*{address}" class="form-control mt-2 mb-2" th:errorclass="field-error"
                  placeholder="주소를 입력해주세요.">
-          <div class="field-error" th:errors="*{address}"></div>
         </div>
         <div class="row mt-3 mb-3">
           <div class="col">
@@ -64,6 +121,7 @@
                     type="button">취소</button>
           </div>
         </div>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
     </form>
   </div>
 </div>

@@ -21,6 +21,12 @@ repositories {
 	mavenCentral()
 }
 
+dependencyManagement {
+	imports {
+		mavenBom 'org.springframework.security:spring-security-bom:6.2.3'
+	}
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
@@ -29,12 +35,21 @@ dependencies {
 
 	// spring-security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation "org.springframework.security:spring-security-web"
+	implementation "org.springframework.security:spring-security-config"
 
 	// Bean Validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-	// 스프링 시큐리티5
+	// 스프링 시큐리티 6
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
+	// 이메일 인증
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	// javax mail
+	// https://mvnrepository.com/artifact/com.sun.mail/jakarta.mail
+	implementation group: 'com.sun.mail', name: 'jakarta.mail', version: '2.0.1'
+
 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
