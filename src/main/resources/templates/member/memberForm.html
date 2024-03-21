@@ -19,51 +19,81 @@
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script type="text/javascript">
-             let isCertification = false;
+             var isCertification = false;
+             var pwCK = false;
+
             function sendNumber(){
                 $("#mail_number").css("display","block");
                 $.ajax({
-                    url:"/mail",
-                    type:"post",
+                    url: "/mail",
+                    type: "post",
                     crossDomain: true,
-                    headers: {  'Access-Control-Allow-Origin': 'http://The web site allowed to access' },
-                    dataType:"json",
-                    data:{"mail" : $("#mail").val()},
-                    success: function(data){
+                    headers: {'Access-Control-Allow-Origin': 'http://The web site allowed to access'},
+                    dataType: "json",
+                    data: {"mail": $("#mail").val()},
+                    success: function (data) {
                         alert("인증 번호 발송");
-                        $("#confirm").attr("value",data);
-                        isCertification=false;
+                        $("#confirm").attr("value", data);
+                        isCertification = false;
                     },
-                    error:function(request, status, error){
-                        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                    error: function (request, status, error) {
+                        alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
                     }
+                });
+            }
+
+
+             function confirmNumber() {
+                 let number1 = $("#number").val();
+                 let number2 = $("#confirm").val();
+
+                 const $resultMsg = $('#mail-check-warn');
+
+                 if (number1 === undefined || number1 === null || number1 === '') {
+                     alert("인증 번호를 입력해주세요.");
+                 }
+                 if (number1 === number2 && number1 !== null && number1 !== '') {
+                     $resultMsg.html("인증 성공");
+                     $resultMsg.css('color', 'blue');
+                     isCertification = true
+                 } else {
+                     $resultMsg.html("인증 번호 불일치");
+                     $resultMsg.css('color', 'red');
+                     isCertification = false;
+                 }
+
+             }
+
+             function pwCheck() {
+                 if ($('#password').val() === $('#passwordConfirm').val()) {
+                     $('#password_check').text('비밀번호가 일치합니다.').css('color', 'green')
+                     pwCK = true;
+                 } else {
+                     $('#password_check').text('비밀번호가 일치하지 않습니다.').css('color', 'red')
+                     pwCK = false;
+                 }
+             }
+
+        </script>
+        <script th:inline="javascript">
+            $(document).ready(function(){
+                var errorMessage = [[${errorMessage}]];
+                if(errorMessage != null){
+                    alert(errorMessage);
+                }
             });
-            }
-            
-            function blank() {
 
-                
-            }
-
-            function confirmNumber(){
-                let number1 = $("#number").val();
-                let number2 = $("#confirm").val();
-
-                const $resultMsg = $('#mail-check-warn');
-
-                if (number1 === undefined || number1 === null || number1 === '') {
-                    alert("인증 번호를 입력해주세요.");
+            function submitCheck() {
+                if(isCertification === false) {
+                    alert("메일 인증을 진행해주세요.");
+                    return false;
                 }
-                if (number1 == number2 && number1 !== null && number1 !== '') {
-                    $resultMsg.html("인증 성공");
-                    $resultMsg.css('color', 'blue');
-                    isCertification=true
-                }else {
-                    $resultMsg.html("인증 번호 불일치");
-                    $resultMsg.css('color', 'red');
-                    isCertification=false;
+                if(pwCK === false) {
+                    alert("비밀번호를 다시 확인해주세요.");
+                    return false;
+                } else {
+                    return true;
                 }
-
             }
         </script>
     </th:block>
@@ -75,7 +105,7 @@
       <h2>회원 가입</h2>
     </div>
     <h4 class="mb-3">회원 정보 입력</h4>
-    <form th:action th:object="${memberFormDto}" method="post">
+    <form th:action th:object="${memberFormDto}" method="post" onsubmit="return submitCheck();">
         <div>
           <label th:for="name">NAME</label>
           <input type="text" th:field="*{name}" class="form-control mt-2 mb-2" th:errorclass="field-error" placeholder="이름을 입력해주세요.">
@@ -88,8 +118,12 @@
         </div>
         <div>
           <label th:for="password">PASSWORD</label>
-          <input type="text" th:field="*{password}" class="form-control mt-2 mb-2" th:errorclass="field-error" placeholder="비밀번호을 입력해주세요.">
+          <input type="text" th:field="*{password}" id="password" class="form-control mt-2 mb-2" oninput="pwCheck()" th:errorclass="field-error" placeholder="비밀번호을 입력해주세요.">
             <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
+        </div>
+        <div>
+            <input type="password" id="passwordConfirm" class="form-control mt-2 mb-2" oninput="pwCheck()" placeholder="비밀번호 확인">
+            <span id="password_check">비밀번호 확인해주세요.</span>
         </div>
         <div>
             <label th:for="email">EMAIL</label>
