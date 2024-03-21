@@ -17,6 +17,7 @@ import toy.project.repository.MemberRepository;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 /**
@@ -76,37 +77,32 @@ public class MemberService implements UserDetailsService {
      * Message : dto에서 작성한 message 값
      * 유효성 검사에 실패한 필드 목록을 받아 미리 정의된 메시지를 가져와 Map에 넣어준다.
      */
-    @Transactional(readOnly = true)
-    public Map<String, String> validateHandling(Errors errors) {
-        HashMap<String, String> validatorResult = new HashMap<>();
+//    @Transactional(readOnly = true)
+//    public Map<String, String> validateHandling(Errors errors) {
+//        HashMap<String, String> validatorResult = new HashMap<>();
+//
+//        /* 유효성 검사에 실패한 필드 목록을 받음 */
+//        for (FieldError error : errors.getFieldErrors()) {
+//            String validKeyName = String.format("valid_%s", error.getField());
+//            validatorResult.put(validKeyName, error.getDefaultMessage());
+//        }
+//
+//        return validatorResult;
+//    }
 
-        /* 유효성 검사에 실패한 필드 목록을 받음 */
-        for (FieldError error : errors.getFieldErrors()) {
-            String validKeyName = String.format("valid_%s", error.getField());
-            validatorResult.put(validKeyName, error.getDefaultMessage());
+
+
+    public String idCheck(String loginId) {
+        Member CheckLoginId = memberRepository.findByLoginId(loginId);
+        if(CheckLoginId == null){
+            return "ok";
+        }else {
+            return "no";
         }
-
-        return validatorResult;
     }
 
 
-    @Transactional(readOnly = true)
-    public void checkLoginIdDuplication(MemberFormDto dto) {
-        boolean loginIdDuplicate = memberRepository.existsByLoginId(dto.getLoginId());
-        if (loginIdDuplicate) {
-            throw new IllegalArgumentException("이미 존재하는 아이디입니다.");
-        }
 
-    }
-
-    @Transactional(readOnly = true)
-    public void checkEmailDuplication(MemberFormDto dto) {
-        boolean emailDuplicate = memberRepository.existsByEmail(dto.getEmail());
-        if (emailDuplicate) {
-            throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
-        }
-
-    }
 
 }
 

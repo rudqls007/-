@@ -103,6 +103,34 @@
                 }
             }
         </script>
+        <script th:inline="javascript">
+            var loginIdDuplicate = () => {
+              var loginId = document.getElementById("loginId").value;
+              var checkResult = document.getElementById("id-dup-result");
+                $.ajax({
+                    type: "post",
+                    url: "/members/check/id",
+                    dataType: "text",
+                    data: {
+                        "loginId": loginId
+                    },
+                    success: function (result) {
+                        if (result === "ok") {
+                            checkResult.innerHTML = "사용 가능한 아이디 입니다.";
+                            checkResult.style.color = "green";
+
+                        } else {
+                            checkResult.innerHTML = "이미 사용중인 아이디 입니다.";
+                            checkResult.style.color = "red";
+                        }
+                    },
+                    error: function () {
+                        alert("ajax 실패");
+
+                    }
+                });
+            }
+        </script>
     </th:block>
   <title>회원 가입</title>
 </head>
@@ -120,8 +148,9 @@
         </div>
         <div>
             <label th:for="name">ID</label>
-            <input type="text" th:field="*{loginId}" class="form-control mt-2 mb-2" th:errorclass="field-error" placeholder="이름을 입력해주세요.">
-            <button type="button" class="btn btn-primary btn-sm mt-2 mb-2" id="idAuth" name="idAuth" onclick="sendNumber()">중복 확인</button>
+            <input type="text" th:field="*{loginId}" id="loginId" name="loginId" class="form-control mt-2 mb-2" th:errorclass="field-error" placeholder="이름을 입력해주세요.">
+            <span id="id-dup-result"></span>
+            <button type="button" class="btn btn-primary btn-sm mt-2 mb-2" id="idAuth" name="idAuth" onclick="loginIdDuplicate()">중복 확인</button>
             <p th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}" class="fieldError">Incorrect data</p>
         </div>
         <div>
@@ -135,7 +164,7 @@
         </div>
         <div>
             <label th:for="email">EMAIL</label>
-            <input type="email" th:field="*{email}" name="mail", id="mail" class="form-control mt-2 mb-2" th:errorclass="field-error" placeholder="이메일을 입력해주세요.">
+            <input type="email" th:field="*{email}" name="mail" id="mail" class="form-control mt-2 mb-2" th:errorclass="field-error" placeholder="이메일을 입력해주세요.">
             <p th:if="${#fields.hasErrors('email')}" id="email" th:errors="*{email}" class="fieldError">Incorrect data</p>
         </div>
         <div>
@@ -143,6 +172,8 @@
         </div>
         <div class="mt-2 mb-2" id="mail_number" name="mail_number" style="display: none">
             <input class="form-control" type="text" id="number" name="number" style="width: 250px; margin-top: -10px" placeholder="인증 번호를 입력해주세요.">
+            <span id="emailValidAble"></span>
+            <span id="emailNotValidAble"></span>
             <span id="mail-check-warn"></span>
             <button type="button" class="btn btn-primary btn-sm mt-2 mb-2" id="confirmBtn" name="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
             <input type="text" id="confirm" name="confirm" style="display: none" value="">

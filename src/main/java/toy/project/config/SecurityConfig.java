@@ -48,7 +48,7 @@ public class SecurityConfig {
 
         // 시큐리티 처리에 HttpServletRequest 활용
         http
-                .csrf(csrf ->csrf.ignoringRequestMatchers("/mail/**"))
+                .csrf(csrf ->csrf.ignoringRequestMatchers("/mail/**", "/members/check/**"))
                 .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
                 // permitAll() : 모든 사용자가 인증(로그인) 없이 해당 경로에 접근할 수 있도록 지정함.
                 .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()

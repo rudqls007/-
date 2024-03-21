@@ -6,6 +6,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import toy.project.constant.Role;
 import toy.project.dto.MemberFormDto;
 
+import java.util.Optional;
+
 /*
 * 회원 정보를 저장하는 Member 엔티티
 * 관리할 회원 정보

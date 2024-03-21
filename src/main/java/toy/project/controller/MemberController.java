@@ -3,16 +3,14 @@ package toy.project.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import toy.project.dto.MemberFormDto;
 import toy.project.entity.Member;
 import toy.project.service.MemberService;
@@ -56,9 +54,21 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @PostMapping("/check/id")
+    public @ResponseBody String idCHeck(@RequestParam String loginId) {
+        String checkResult = memberService.idCheck(loginId);
+        log.info("loginId", loginId);
+        return checkResult;
+
+    }
+
+
+
+
 
     @GetMapping("/login")
     public String loginMember() {
+
         return "member/memberLoginForm";
     }
 
