@@ -52,7 +52,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
                 // permitAll() : 모든 사용자가 인증(로그인) 없이 해당 경로에 접근할 수 있도록 지정함.
                 .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                .requestMatchers("/", "/members/**", "/item/**", "/images/**").permitAll()
+                .requestMatchers("/", "/members/**", "/item/**", "/images/**","/favicon.ico").permitAll()
                 .requestMatchers(HttpMethod.POST).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/mail/**")).permitAll()
                 // /admin으로 시작하는 경로는 해당 계정이 ADMIN Role일 경우에만 접근 가능하도록 설정함.

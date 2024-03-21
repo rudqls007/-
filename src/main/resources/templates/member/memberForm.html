@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/layouts/default_layout}">
@@ -23,23 +22,31 @@
              var pwCK = false;
 
             function sendNumber(){
-                $("#mail_number").css("display","block");
-                $.ajax({
-                    url: "/mail",
-                    type: "post",
-                    crossDomain: true,
-                    headers: {'Access-Control-Allow-Origin': 'http://The web site allowed to access'},
-                    dataType: "json",
-                    data: {"mail": $("#mail").val()},
-                    success: function (data) {
-                        alert("인증 번호 발송");
-                        $("#confirm").attr("value", data);
-                        isCertification = false;
-                    },
-                    error: function (request, status, error) {
-                        alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-                    }
-                });
+                let blank = $('#mail').val();
+                if (blank === '') {
+                    $("#mail_number").css("display","none");
+                    alert("이메일을 입력하셔아 합니다.");
+                }else {
+                    $("#mail_number").css("display","block");
+                    $('#sendBtn')
+                    $.ajax({
+                        url: "/mail",
+                        type: "post",
+                        crossDomain: true,
+                        headers: {'Access-Control-Allow-Origin': 'http://The web site allowed to access'},
+                        dataType: "json",
+                        data: {"mail": $("#mail").val()},
+                        success: function (data) {
+                            alert("인증 번호 발송");
+                            $("#confirm").attr("value", data);
+                            isCertification = false;
+                        },
+                        error: function (request, status, error) {
+                            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                        }
+                    });
+                }
+
             }
 
 
@@ -114,6 +121,7 @@
         <div>
             <label th:for="name">ID</label>
             <input type="text" th:field="*{loginId}" class="form-control mt-2 mb-2" th:errorclass="field-error" placeholder="이름을 입력해주세요.">
+            <button type="button" class="btn btn-primary btn-sm mt-2 mb-2" id="idAuth" name="idAuth" onclick="sendNumber()">중복 확인</button>
             <p th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}" class="fieldError">Incorrect data</p>
         </div>
         <div>
@@ -123,12 +131,12 @@
         </div>
         <div>
             <input type="password" id="passwordConfirm" class="form-control mt-2 mb-2" oninput="pwCheck()" placeholder="비밀번호 확인">
-            <span id="password_check">비밀번호 확인해주세요.</span>
+            <span id="password_check"></span>
         </div>
         <div>
             <label th:for="email">EMAIL</label>
             <input type="email" th:field="*{email}" name="mail", id="mail" class="form-control mt-2 mb-2" th:errorclass="field-error" placeholder="이메일을 입력해주세요.">
-            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
+            <p th:if="${#fields.hasErrors('email')}" id="email" th:errors="*{email}" class="fieldError">Incorrect data</p>
         </div>
         <div>
             <button type="button" class="btn btn-primary btn-sm mt-2 mb-2" id="sendBtn" name="sendBtn" onclick="sendNumber()">인증번호 발송</button>
@@ -141,8 +149,8 @@
         </div>
         <div>
           <label th:for="adress">ADDRESS</label>
-          <input type="text" th:field="*{address}" class="form-control mt-2 mb-2" th:errorclass="field-error"
-                 placeholder="주소를 입력해주세요.">
+          <input type="text" th:field="*{address}" class="form-control mt-2 mb-2" th:errorclass="field-error" placeholder="주소를 입력해주세요.">
+            <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="fieldError">Incorrect data</p>
         </div>
         <div class="row mt-3 mb-3">
           <div class="col">
