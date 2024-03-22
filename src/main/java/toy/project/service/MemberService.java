@@ -2,6 +2,7 @@ package toy.project.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,6 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import toy.project.entity.Member;
 import toy.project.repository.MemberRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 /**
@@ -49,6 +53,7 @@ public class MemberService implements UserDetailsService {
 
         Member member = memberRepository.findByLoginId(loginId);
 
+
         if (member == null) {
             throw new UsernameNotFoundException(loginId);
         }
@@ -60,6 +65,8 @@ public class MemberService implements UserDetailsService {
                 .roles(member.getRole().toString())
                 .build();
     }
+
+
 
     /* 회원 가입 시, 유효성 체크 */
 
@@ -92,8 +99,6 @@ public class MemberService implements UserDetailsService {
             return "no";
         }
     }
-
-
 
 
 }

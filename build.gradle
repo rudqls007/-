@@ -50,6 +50,9 @@ dependencies {
 	// https://mvnrepository.com/artifact/com.sun.mail/jakarta.mail
 	implementation group: 'com.sun.mail', name: 'jakarta.mail', version: '2.0.1'
 
+	//Oauth2 로그인
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -63,7 +66,6 @@ dependencies {
 
 	// Spring-boot-devtools
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
 
 
 	runtimeOnly 'com.h2database:h2'

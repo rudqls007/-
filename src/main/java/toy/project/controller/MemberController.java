@@ -3,16 +3,20 @@ package toy.project.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.BadRequestException;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import toy.project.config.auth.PrincipalDetails;
 import toy.project.dto.MemberFormDto;
 import toy.project.entity.Member;
 import toy.project.service.MemberService;
+
+import java.util.Map;
 
 
 @RequestMapping("/members")
@@ -24,6 +28,9 @@ public class MemberController {
     private final MemberService memberService;
 
     private final PasswordEncoder passwordEncoder;
+
+
+
 
     @GetMapping("/new")
     public String memberForm(Model model) {
@@ -60,14 +67,42 @@ public class MemberController {
     }
 
 
-
-
-
     @GetMapping("/login")
     public String loginMember() {
 
         return "member/memberLoginForm";
     }
+
+    // !!!! OAuth로 로그인 시 이 방식대로 하면 CastException 발생함
+    @GetMapping("/form/loginInfo")
+    @ResponseBody
+    public String formLoginInfo(Authentication authentication, @AuthenticationPrincipal PrincipalDetails principalDetails){
+
+        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        String member = principal.getName();
+        System.out.println(member);
+
+        String user1 = principalDetails.getName();
+        System.out.println(user1);
+
+        return member.toString();
+    }
+
+    @GetMapping("/oauth/loginInfo")
+    @ResponseBody
+    public String oauthLoginInfo(Authentication authentication, @AuthenticationPrincipal OAuth2User oAuth2UserPrincipal){
+        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+        Map<String, Object> attributes = oAuth2User.getAttributes();
+        System.out.println(attributes);
+        // PrincipalOauth2UserService의 getAttributes 내용과 같음
+
+        Map<String, Object> attributes1 = oAuth2UserPrincipal.getAttributes();
+        // attributes == attributes1
+
+        return attributes.toString();     //세션에 담긴 user가져올 수 있음
+    }
+
+
 
     @GetMapping("/login/error")
     public String loginError(Model model) {

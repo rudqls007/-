@@ -1,7 +1,10 @@
 package toy.project.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import toy.project.constant.Role;
 import toy.project.dto.MemberFormDto;
@@ -17,9 +20,12 @@ import java.util.Optional;
 * 이메일
 * 주소
 * 역할 */
+@Builder
 @Entity
-@Table(name = "member")
+@Table(name="member")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Member {
 
     @Id
@@ -35,6 +41,8 @@ public class Member {
 
     private String password;
 
+    private String picture;
+
     private String email;
 
     private String zipcode;
@@ -43,11 +51,17 @@ public class Member {
 
     private String detailAddress;
 
+    private String provider;   // oauth2를 이용할 경우 어떤 플랫폼을 이용하는지
+
+    private String providerId; // oauth2를 이용할 경우 아이디값
+
 
     /* 자바의 enum 타입을 엔티티의 속성으로 지정함
      *  Enum을 사용할 때 기본적으로 순서가 저장되는데 enum의 순서가 바뀔 경우 문제가 발생할 수 있으므로 String 타입으로 저장하기 위함 */
     @Enumerated(EnumType.STRING)
     private Role role;
+
+
 
     /* Member 엔티티를 생성하는 메소드 회원가입 메소드를 만들어서 관리를 한다면 코드가 변경되더라도 한 군데만 수정하면 되는 이점이 있음. */
     public static Member createMember(MemberFormDto memberFromDto, PasswordEncoder passwordEncoder) {
@@ -65,6 +79,25 @@ public class Member {
         member.setRole(Role.ADMIN);
 
         return member;
+    }
+
+
+    @Builder(builderClassName = "UserDetailRegister", builderMethodName = "userDetailRegister")
+    public Member(String name, String password, String email, Role role) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
+
+    @Builder(builderClassName = "OAuth2Register", builderMethodName = "oauth2Register")
+    public Member(String name, String password, String email, Role role, String provider, String providerId) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.provider = provider;
+        this.providerId = providerId;
     }
 
 }

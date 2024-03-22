@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import toy.project.config.auth.PrincipalOauth2UserService;
 import toy.project.service.MemberService;
 
 @Configuration
@@ -20,27 +21,34 @@ public class SecurityConfig {
     @Autowired
     MemberService memberService;
 
+    @Autowired
+    private PrincipalOauth2UserService principalOauth2UserService;
 
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.formLogin((formLogin) -> formLogin
-                // 로그인 시 사용할 파라미터로 loginId 사용
-                .usernameParameter("loginId")
-                // 로그인 실패 시 이동할 페이지 지정
-                .failureUrl("/members/login/error")
-                // 로그인 페이지 설정
-                .loginPage("/members/login")
-                // 로그인 성공 시 메인페이지로 이동
-                .defaultSuccessUrl("/"))
+                        // 로그인 시 사용할 파라미터로 loginId 사용
+                        .usernameParameter("loginId")
+                        // 로그인 실패 시 이동할 페이지 지정
+                        .failureUrl("/members/login/error")
+                        // 로그인 페이지 설정
+                        .loginPage("/members/login")
+                        // 로그인 성공 시 메인페이지로 이동
+                        .defaultSuccessUrl("/"))
                 .logout((logout) -> logout
-                 // 로그아웃 url 설정
-                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
-                 // 로그아웃 성공 시 메인페이지로 이동
-                .logoutSuccessUrl("/")
-                 // 기존에 생성된 사용자 세션도 invaildateHttpSession을 통해 삭제하도록 설정
-                .invalidateHttpSession(true));
+                        // 로그아웃 url 설정
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
+                        // 로그아웃 성공 시 메인페이지로 이동
+                        .logoutSuccessUrl("/")
+                        // 기존에 생성된 사용자 세션도 invaildateHttpSession을 통해 삭제하도록 설정
+                        .invalidateHttpSession(true))
+                .oauth2Login()
+                .defaultSuccessUrl("/")
+                .userInfoEndpoint()
+                .userService(principalOauth2UserService);
+
 
 
 
@@ -53,6 +61,7 @@ public class SecurityConfig {
                 // permitAll() : 모든 사용자가 인증(로그인) 없이 해당 경로에 접근할 수 있도록 지정함.
                 .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
                 .requestMatchers("/", "/members/**", "/item/**", "/images/**","/favicon.ico").permitAll()
+                .requestMatchers(HttpMethod.GET).permitAll()
                 .requestMatchers(HttpMethod.POST).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/mail/**")).permitAll()
                 // /admin으로 시작하는 경로는 해당 계정이 ADMIN Role일 경우에만 접근 가능하도록 설정함.
@@ -71,9 +80,5 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
 }
