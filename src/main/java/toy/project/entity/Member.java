@@ -37,7 +37,12 @@ public class Member {
 
     private String email;
 
-    private String address;
+    private String zipcode;
+
+    private String streetAddress;
+
+    private String detailAddress;
+
 
     /* 자바의 enum 타입을 엔티티의 속성으로 지정함
      *  Enum을 사용할 때 기본적으로 순서가 저장되는데 enum의 순서가 바뀔 경우 문제가 발생할 수 있으므로 String 타입으로 저장하기 위함 */
@@ -50,7 +55,10 @@ public class Member {
         member.setLoginId(memberFromDto.getLoginId());
         member.setName(memberFromDto.getName());
         member.setEmail(memberFromDto.getEmail());
-        member.setAddress(memberFromDto.getAddress());
+        /* 주소 */
+        member.setZipcode(memberFromDto.getZipcode());
+        member.setStreetAddress(memberFromDto.getStreetAddress());
+        member.setDetailAddress(memberFromDto.getDetailAddress());
         /* 스프링 시큐리티 설정 클래스에 등록한 BcrypPasswordEncoder를 파라미터로 넘겨서 비밀번호를 암호화 함. */
         String password = passwordEncoder.encode(memberFromDto.getPassword());
         member.setPassword(password);

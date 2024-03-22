@@ -9,14 +9,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import toy.project.dto.MemberFormDto;
 import toy.project.entity.Member;
 import toy.project.service.MemberService;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @RequestMapping("/members")
 @Controller

@@ -8,16 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
-import toy.project.dto.MemberFormDto;
-import toy.project.dto.UserRequestDto;
 import toy.project.entity.Member;
 import toy.project.repository.MemberRepository;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @Service
 /**
@@ -60,8 +52,8 @@ public class MemberService implements UserDetailsService {
         if (member == null) {
             throw new UsernameNotFoundException(loginId);
         }
-        /* UserDetail을 구현하고 있는 User 객체를 반환해줌.
-        *  User 객체를 생성하기 위해서 생성자로 회원의 아이디, 비밀번호, role을 파라미터로 넘겨줌.*/
+        /* UserDetail을 구현하고 있는  User 객체를 반환해줌.
+        *  User  객체를 생성하기 위해서 생성자로 회원의 아이디, 비밀번호, role을 파라미터로 넘겨줌.*/
         return User.builder()
                 .username(member.getLoginId())
                 .password(member.getPassword())
