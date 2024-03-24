@@ -73,6 +73,7 @@ public class MemberController {
         return "member/memberLoginForm";
     }
 
+
     // !!!! OAuth로 로그인 시 이 방식대로 하면 CastException 발생함
     @GetMapping("/form/loginInfo")
     @ResponseBody

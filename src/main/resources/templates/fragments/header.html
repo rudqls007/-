@@ -36,22 +36,25 @@
                         <li><a class="dropdown-item" th:href="@{/board/qna}">Q&A</a></li>
                     </ul>
                 </li>
+                <li class="nav-item dropdown" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ADMIN
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/admin/item/new}">상품 등록</a></li>
+                        <li><a class="dropdown-item" th:href="@{/admin/items}">상품 관리</a></li>
+                    </ul>
+                </li>
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0 text-white">
-                <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                    <a class="nav-link" th:href="@{/admin/item/new}">상품 등록</a>
-                </li>
-                <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                    <a class="nav-link" th:href="@{/admin/items}">상품 관리</a>
-                </li>
                 <li class="nav-item" sec:authorize="isAnonymous()">
                     <a th:href="@{/members/login}" class="nav-link px-2">Login</a>
                 </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <span sec:authentication="name"></span>
-                </li>
                 <li class="nav-item" sec:authorize="isAnonymous()">
                     <a th:href="@{/members/new}" class="nav-link px-2">Sign up</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <span class="nav-link" sec:authentication="name"></span>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a th:href="@{/members/logout}" class="nav-link px-2">Logout</a>

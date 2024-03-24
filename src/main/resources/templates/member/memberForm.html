@@ -184,7 +184,7 @@
       <h2>회원 가입</h2>
     </div>
     <h4 class="mb-3">회원 정보 입력</h4>
-    <form th:action th:object="${memberFormDto}" method="post" onsubmit="return submitCheck();">
+    <form th:action th:object="${memberFormDto}" method="post" onsubmit="submitCheck()">
         <div>
           <label th:for="name">NAME</label>
                 <input type="text" th:field="*{name}" class="form-control mt-2 mb-2" th:errorclass="field-error" placeholder="이름을 입력해주세요."/>

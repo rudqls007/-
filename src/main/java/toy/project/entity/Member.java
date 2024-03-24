@@ -1,10 +1,7 @@
 package toy.project.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import toy.project.constant.Role;
 import toy.project.dto.MemberFormDto;
@@ -91,8 +88,9 @@ public class Member {
     }
 
     @Builder(builderClassName = "OAuth2Register", builderMethodName = "oauth2Register")
-    public Member(String name, String password, String email, Role role, String provider, String providerId) {
+    public Member(String name, String loginId, String password, String email, Role role, String provider, String providerId) {
         this.name = name;
+        this.loginId =loginId;
         this.password = password;
         this.email = email;
         this.role = role;
