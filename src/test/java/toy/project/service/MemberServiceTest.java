@@ -29,7 +29,6 @@ class MemberServiceTest {
         memberFromDto.setName("이경빈");
         memberFromDto.setLoginId("rudqls007");
         memberFromDto.setEmail("dlrudqls55@naver.com");
-        memberFromDto.setAddress("서울시 강남구 언주로");
         memberFromDto.setPassword("55555");
         return Member.createMember(memberFromDto, passwordEncoder);
     }
@@ -44,7 +43,6 @@ class MemberServiceTest {
         assertThat(member.getName()).isEqualTo(savedMember.getName());
         assertThat(member.getLoginId()).isEqualTo(savedMember.getLoginId());
         assertThat(member.getEmail()).isEqualTo(savedMember.getEmail());
-        assertThat(member.getAddress()).isEqualTo(savedMember.getAddress());
         assertThat(member.getPassword()).isEqualTo(savedMember.getPassword());
         assertThat(member.getRole()).isEqualTo(savedMember.getRole());
     }

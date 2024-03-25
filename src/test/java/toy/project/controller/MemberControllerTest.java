@@ -35,7 +35,6 @@ class MemberControllerTest {
         memberFormDto.setLoginId(loginId);
         memberFormDto.setPassword(password);
         memberFormDto.setName("이경빈");
-        memberFormDto.setAddress("서울시 강남구 언주로");
         memberFormDto.setEmail("dlrudqls55@naver.com");
         Member member = Member.createMember(memberFormDto, passwordEncoder);
         return memberService.saveMember(member);
