@@ -1,5 +1,6 @@
 package toy.project.entity;
 
+import groovy.util.logging.Slf4j;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import toy.project.constant.ItemSellStatus;
 import toy.project.repository.ItemRepository;
 import toy.project.repository.MemberRepository;
+import toy.project.repository.OrderItemRepository;
 import toy.project.repository.OrderRepository;
 
 import java.time.LocalDateTime;
@@ -24,6 +26,8 @@ import java.time.LocalDateTime;
 class OrderTest {
 
 
+
+
     @Autowired
     OrderRepository orderRepository;
 
@@ -32,6 +36,9 @@ class OrderTest {
 
     @Autowired
     MemberRepository memberRepository;
+
+    @Autowired
+    OrderItemRepository orderItemRepository;
 
 
     @PersistenceContext
@@ -117,5 +124,24 @@ class OrderTest {
         Order order = this.createOrder();
         order.getOrderItems().remove(0);
         em.flush();
+    }
+
+
+    @Test
+    @DisplayName("지연 로딩 테스트")
+    public void lazyLoadingTest() {
+        Order order = this.createOrder();
+        Long orderItemId = order.getOrderItems().get(0).getId();
+        /*  영속성 컨텍스트 상태 초기화 */
+        em.flush();
+        em.clear();
+
+        /* 영속성 컨텍스트의 상태 초기화 후 order 엔티티에 저장했던 주문 상품 아이디를 이용하여 orderItem을 데이터베이스에 다시 조화 */
+        OrderItem orderItem = orderItemRepository.findById(orderItemId).orElseThrow(EntityNotFoundException::new);
+        /* orderItem 엔티티에 있는 order 객체의 클래스를 출력하고, Order 클래스가 출력되는 것을 확인할 수 있음. */
+        System.out.println("Order class = " + orderItem.getOrder().getClass());
+        System.out.println("================================================");
+        orderItem.getOrder().getOrderDate();
+        System.out.println("================================================");
     }
 }
