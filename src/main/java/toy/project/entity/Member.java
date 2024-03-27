@@ -3,6 +3,7 @@ package toy.project.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import toy.project.config.BaseEntity;
 import toy.project.constant.Role;
 import toy.project.dto.MemberFormDto;
 
@@ -23,7 +24,7 @@ import java.util.Optional;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @Column(name = "member_id")

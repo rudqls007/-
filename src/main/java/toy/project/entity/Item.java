@@ -2,6 +2,7 @@ package toy.project.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import toy.project.config.BaseEntity;
 import toy.project.constant.ItemSellStatus;
 
 import java.time.LocalDateTime;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "item")
 @Data
-public class Item {
+public class Item extends BaseEntity {
 
     /**
      * @Id = entity로 선언한 클래스는 반드시 기본키를 가져야 함.
@@ -50,7 +51,7 @@ public class Item {
     @Enumerated(EnumType.STRING)
     private ItemSellStatus itemSellStatus; //상품 판매 상태
 
-    private LocalDateTime regTime; //등록 시간
-
-    private LocalDateTime updateTime; //수정 시간
+//    private LocalDateTime regTime; //등록 시간
+//
+//    private LocalDateTime updateTime; //수정 시간
 }

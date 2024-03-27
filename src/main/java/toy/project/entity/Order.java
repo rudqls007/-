@@ -2,6 +2,7 @@ package toy.project.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import toy.project.config.BaseEntity;
 import toy.project.constant.OrderStatus;
 
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ import java.util.Locale;
 @Entity
 @Table(name = "orders")
 @Data
-public class Order {
+public class Order extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -42,9 +43,9 @@ public class Order {
     /* 하나의 주문이 여러 개의 주문 상품을 갖으므로 List 자료형을 사용해서 매핑함. */
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    private LocalDateTime regTiem;
-
-    private LocalDateTime updateTiem;
+//    private LocalDateTime regTiem;
+//
+//    private LocalDateTime updateTiem;
 
 
 }

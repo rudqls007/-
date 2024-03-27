@@ -2,11 +2,12 @@ package toy.project.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import toy.project.config.BaseEntity;
 
 @Entity
 @Data
 @Table(name = "cart_item")
-public class CartItem {
+public class CartItem extends BaseEntity {
 
     @Id
     @GeneratedValue
