@@ -44,6 +44,9 @@ dependencies {
 	// 스프링 시큐리티 6
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
+	/* JWT */
+	implementation 'com.auth0:java-jwt:4.4.0'
+
 	// 이메일 인증
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	// javax mail
@@ -75,8 +78,9 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
-	compileOnly 'org.projectlombok:lombok'
+	compileOnly 'org.projectlombok:lombok:1.18.30'
 	annotationProcessor 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test:6.2.2'
 

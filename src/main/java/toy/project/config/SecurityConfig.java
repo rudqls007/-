@@ -1,21 +1,24 @@
 package toy.project.config;
 
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import toy.project.config.auth.PrincipalOauth2UserService;
 import toy.project.service.MemberService;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfig {
 
     @Autowired
@@ -23,6 +26,13 @@ public class SecurityConfig {
 
     @Autowired
     private PrincipalOauth2UserService principalOauth2UserService;
+
+    /* AuthenticationManager Bean 등록 */
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+            throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
 
 
     @Bean
@@ -56,12 +66,12 @@ public class SecurityConfig {
 
         // 시큐리티 처리에 HttpServletRequest 활용
         http
-                .csrf(csrf ->csrf.ignoringRequestMatchers("/mail/**", "/members/check/**"))
+                .csrf((csrf) ->
+                        csrf.ignoringRequestMatchers("/mail/**","members/check/**"))
                 .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
                 // permitAll() : 모든 사용자가 인증(로그인) 없이 해당 경로에 접근할 수 있도록 지정함.
                 .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                .requestMatchers("/", "/members/**", "/item/**", "/images/**","/favicon.ico").permitAll()
-                .requestMatchers(HttpMethod.POST).permitAll()
+                .requestMatchers("/", "/members/**", "/item/**", "/images/**","/favicon.ico","/board/**").permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/mail/**")).permitAll()
                 // /admin으로 시작하는 경로는 해당 계정이 ADMIN Role일 경우에만 접근 가능하도록 설정함.
                 .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -75,6 +85,9 @@ public class SecurityConfig {
         http.exceptionHandling(authenticationManager -> authenticationManager
                 // 인증되지 않은 사용자가 리소스에 접근하였을 때 수행되는 핸들러를 등록함.
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint()));
+
+        http.sessionManagement((session ->
+                session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)));
 
         return http.build();
     }
