@@ -3,6 +3,9 @@ package toy.project.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.modelmapper.ModelMapper;
 import toy.project.constant.ItemSellStatus;
 import toy.project.entity.Item;
@@ -10,13 +13,15 @@ import toy.project.entity.Item;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@ToString
 public class ItemFormDto {
 
     private Long id;
 
     @NotBlank(message = "상품명은 필수 입력 값입니다.")
-    private String itemNm;
+    private String itemName;
 
     private String itemCategory;
 

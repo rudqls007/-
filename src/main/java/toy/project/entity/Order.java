@@ -2,6 +2,9 @@ package toy.project.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import toy.project.config.BaseEntity;
 import toy.project.constant.OrderStatus;
 
@@ -13,7 +16,9 @@ import java.util.Locale;
 /* 정렬할 때 사용하는 order 키워드가 있기에 orders로 지정 */
 @Entity
 @Table(name = "orders")
-@Data
+@Getter
+@Setter
+@ToString
 public class Order extends BaseEntity {
 
     @Id

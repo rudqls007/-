@@ -1,12 +1,14 @@
 package toy.project.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import toy.project.config.BaseEntity;
 
 @Entity
-@Data
 @Table(name = "cart_item")
+@Getter @Setter @ToString
 public class CartItem extends BaseEntity {
 
     @Id
@@ -27,4 +29,20 @@ public class CartItem extends BaseEntity {
 
     /* 같은 상품을 장바구니에 몇 개 담을지 저장하는 변수 */
     private int count;
+
+    public static CartItem createCartItem(Cart cart, Item item, int count) {
+        CartItem cartItem = new CartItem();
+        cartItem.setCart(cart);
+        cartItem.setItem(item);
+        cartItem.setCount(count);
+        return cartItem;
+    }
+
+    public void addCount(int count){
+        this.count += count;
+    }
+
+    public void updateCount(int count){
+        this.count = count;
+    }
 }

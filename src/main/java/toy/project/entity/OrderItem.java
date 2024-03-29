@@ -2,13 +2,18 @@ package toy.project.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import toy.project.config.BaseEntity;
 
 import java.time.LocalDateTime;
 
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
 public class OrderItem extends BaseEntity {
 
     @Id

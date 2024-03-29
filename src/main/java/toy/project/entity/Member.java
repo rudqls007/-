@@ -21,9 +21,9 @@ import java.util.Optional;
 @Builder
 @Entity
 @Table(name="member")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter @Setter @ToString
 public class Member extends BaseEntity {
 
     @Id

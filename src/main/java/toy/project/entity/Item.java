@@ -1,11 +1,12 @@
 package toy.project.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import toy.project.config.BaseEntity;
 import toy.project.constant.ItemSellStatus;
 
-import java.time.LocalDateTime;
 
 /**
  * Item 클래스를 entity로 선언함.
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Table(name = "item")
-@Data
+@Getter @Setter @ToString
 public class Item extends BaseEntity {
 
     /**

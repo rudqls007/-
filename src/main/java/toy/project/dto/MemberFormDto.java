@@ -4,9 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
-import lombok.Builder;
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 
 /* 회원 가입 화면으로부터 넘어오는 가입정보를 담을 dto */
 @Data

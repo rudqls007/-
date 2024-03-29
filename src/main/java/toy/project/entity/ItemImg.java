@@ -1,12 +1,14 @@
 package toy.project.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import toy.project.config.BaseEntity;
 
 @Entity
 @Table(name = "item_img")
-@Data
+@Getter @Setter @ToString
 public class ItemImg extends BaseEntity {
 
     @Id
