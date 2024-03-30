@@ -62,9 +62,9 @@
 ## bulid
 
 	plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.2.3'
-	id 'io.spring.dependency-management' version '1.1.4'
+		id 'java'
+		id 'org.springframework.boot' version '3.2.3'
+		id 'io.spring.dependency-management' version '1.1.4'
 	}
 	
 	group = 'toy'
@@ -84,6 +84,12 @@
 		mavenCentral()
 	}
 	
+	dependencyManagement {
+		imports {
+			mavenBom 'org.springframework.security:spring-security-bom:6.2.3'
+		}
+	}
+	
 	dependencies {
 		implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
@@ -92,9 +98,26 @@
 
 	// spring-security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation "org.springframework.security:spring-security-web"
+	implementation "org.springframework.security:spring-security-config"
 
 	// Bean Validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// 스프링 시큐리티 6
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
+	/* JWT */
+	implementation 'com.auth0:java-jwt:4.4.0'
+
+	// 이메일 인증
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	// javax mail
+	// https://mvnrepository.com/artifact/com.sun.mail/jakarta.mail
+	implementation group: 'com.sun.mail', name: 'jakarta.mail', version: '2.0.1'
+
+	//Oauth2 로그인
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -107,9 +130,12 @@
 	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
 	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
+	// ModelMapper
+	implementation 'org.modelmapper:modelmapper:3.2.0'
+
+
 	// Spring-boot-devtools
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
 
 
 	runtimeOnly 'com.h2database:h2'
@@ -117,7 +143,10 @@
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test:6.2.2'
+
 	}
 	
 	tasks.named('test') {
@@ -128,10 +157,11 @@
 
 
 
+
+
 	
 ## 개발 기간 
 
-- 2024-03-12 ing ~
 
 ## 트러블 슈팅
 
