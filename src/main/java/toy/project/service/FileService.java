@@ -28,7 +28,8 @@ public class FileService {
         return savedFileName;
     }
 
-    private void deleteFile(String filePath) throws Exception {
+
+    public void deleteFile(String filePath) throws Exception {
         /* 파일이 저장된 경로를 이용하여 파일 객체를 생성 */
         File deleteFile = new File(filePath);
 

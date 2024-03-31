@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import toy.project.config.BaseEntity;
 import toy.project.constant.ItemSellStatus;
+import toy.project.dto.ItemFormDto;
 
 
 /**
@@ -55,4 +56,16 @@ public class Item extends BaseEntity {
 //    private LocalDateTime regTime; //등록 시간
 //
 //    private LocalDateTime updateTime; //수정 시간
+
+
+
+    public void updateItem(ItemFormDto itemFormDto) {
+        this.itemName = itemFormDto.getItemName();
+        this.price = itemFormDto.getPrice();
+        this.stockNumber = itemFormDto.getStockNumber();
+        this.itemDetail = itemFormDto.getItemDetail();
+        this.itemSellStatus = itemFormDto.getItemSellStatus();
+
+
+    }
 }
