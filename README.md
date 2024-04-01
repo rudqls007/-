@@ -244,7 +244,6 @@ Spring 공식 홈페이지에서 Spring Security 5.7.1 이상 또는 Spring Boot
 - 6.1 버전부터 Before 문법은 사용할 수 없다고 함.
 
 3. 문제 해결 시도
-
 - Spring Security 공식 문서 참고 ( https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/form.html )
 - SecurityFilterChain 구글링
 
@@ -283,6 +282,27 @@ Spring 공식 홈페이지에서 Spring Security 5.7.1 이상 또는 Spring Boot
 		return http.build();
 
   		}
+
+⛔ Name for argument of type [java.lang.String] not specified, and parameter name information not available via reflection. Ensure that the compiler uses the '-parameters' flag
+
+1. 문제 발생
+- Name for argument of type [java.lang.String] not specified, and parameter name information not available via reflection. Ensure that the compiler uses the '-parameters' flag
+
+2. 문제 원인
+- 매개 변수 인식 문제
+
+3. 문제 해결 시도
+- 컴파일 시점에 -parameters 옵션 적용 (해결되지 않음.)
+  
+	1. IntelliJ IDEA에서 File -> Settings를 연다. (Mac은 IntelliJ IDEA -> Settings)
+	2. Build, Execution, Deployment → Compiler → Java Compiler로 이동한다.
+	3. Additional command line parameters라는 항목에 다음을 추가한다. - parameters
+	4. out 폴더를 삭제하고 다시 실행한다. 꼭 out 폴더를 삭제해야 다시 컴파일이 일어난다.
+
+- Gradle 빌드(해결되지 않음.)
+
+4. 해결 방법
+- @RequestParam 이름을 생략하지 않고 적어주었더니 해결 완료.
 
 
 ## 페이지 별 기능
