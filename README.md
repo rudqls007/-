@@ -304,5 +304,33 @@ Spring 공식 홈페이지에서 Spring Security 5.7.1 이상 또는 Spring Boot
 4. 해결 방법
 - @RequestParam 이름을 생략하지 않고 적어주었더니 해결 완료.
 
+⛔ [Querydsl] Attempt to recreate a file for type
+
+![image](https://github.com/rudqls007/toy/assets/111556581/f34abe79-af2f-4818-a8f4-add8e2e135e4)
+
+1. 문제 발생
+- [Querydsl] Attempt to recreate a file for type
+
+2. 문제 원인
+- Q클래스 파일 중복 에러
+
+3. 문제 해결 시도
+- [Querydsl] Attempt to recreate a file for type 에 대한 구글링
+- gradle -> build -> clean -> bulid (해결되지 않음.)
+- Settings -> Build, Execution, Deployment -> Build Tools -> Gradle(해결되지 않음.)
+
+![image](https://github.com/rudqls007/toy/assets/111556581/3203fa5d-05a9-4645-9a89-9b89af8b8408)
+
+![image](https://github.com/rudqls007/toy/assets/111556581/6d0c64d6-6cf6-4239-9617-48a0eeda9ddf)
+
+Gradle - > IntelliJ IDEA 변경
+
+
+4. 해결 방법
+
+![image](https://github.com/rudqls007/toy/assets/111556581/ff14304a-1cc3-4454-9e01-0703f4a225c4)
+
+- Q클래스 저장 경로인 build 아래에 있는 파일 삭제 후 삭제된 상태에서 프로젝트 실행하면 해결됨 !
+
 
 ## 페이지 별 기능
