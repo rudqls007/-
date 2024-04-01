@@ -8,7 +8,7 @@ import toy.project.entity.Item;
 
 import java.util.List;
 
-public interface ItemRepository extends JpaRepository<Item, Long>, QuerydslPredicateExecutor<Item> {
+public interface ItemRepository extends JpaRepository<Item, Long>, QuerydslPredicateExecutor<Item>, ItemRepositoryCustom{
 
     //상품명 조회
     List<Item> findByItemName(String itemName);

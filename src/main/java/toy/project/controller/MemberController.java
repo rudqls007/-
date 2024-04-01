@@ -59,7 +59,7 @@ public class MemberController {
     }
 
     @PostMapping("/check/id")
-    public @ResponseBody String idCHeck(@RequestParam String loginId) {
+    public @ResponseBody String idCheck(@RequestParam("loginId") String loginId) {
         String checkResult = memberService.idCheck(loginId);
         log.info("loginId", loginId);
         return checkResult;

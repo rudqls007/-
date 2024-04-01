@@ -115,7 +115,11 @@
                         "loginId": loginId
                     },
                     success: function (result) {
-                        if (result === "ok") {
+                        if(loginId === ""){
+                            checkResult.innerHTML = "아이디를 입력해주세요.";
+                            checkResult.style.color = "red";
+                        }
+                        else if (result === "ok") {
                             checkResult.innerHTML = "사용 가능한 아이디 입니다.";
                             checkResult.style.color = "green";
 

@@ -37,12 +37,3 @@ li {
     color: white;
     text-decoration: none;
 }
-
-@media (max-width: 767px), (max-width: 991px) {
-.footer1{
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-}
-}
