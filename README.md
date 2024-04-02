@@ -343,26 +343,26 @@ Gradle - > IntelliJ IDEA 변경
 
 웹 보안 설정 업데이트:
 
- 이제는 WebSecurityConfigurerAdapter가 더 이상 권장되지 않으며, 대신 
- SecurityFilterChain을 빈으로 등록하는 방식으로 변경되었음.
+이제는 WebSecurityConfigurerAdapter가 더 이상 권장되지 않으며, 대신 
+SecurityFilterChain을 빈으로 등록하는 방식으로 변경되었음.
 
 커스텀 OAuth2UserService 구현:
 
- 기존의 DefaultOAuth2UserService를 확장하여 새로운 커스텀 OAuth2UserService를 구현하였 
- 고, 이를 통해 UserDetails 메서드를 사용하여 실제 OAuth2User를 구현함.
+기존의 DefaultOAuth2UserService를 확장하여 새로운 커스텀 OAuth2UserService를 구현하였 
+고, 이를 통해 UserDetails 메서드를 사용하여 실제 OAuth2User를 구현함.
 
 보안 설정 업데이트:
 
- 위의 내용들을 반영하여 SecurityConfig를 설정함.
+위의 내용들을 반영하여 SecurityConfig를 설정함.
 
 회원 로드 기능 구현:
 
- MemberService에서는 loadUserByUsername 메서드를 구현하여 회원을 찾을 수 있도록 함.
+MemberService에서는 loadUserByUsername 메서드를 구현하여 회원을 찾을 수 있도록 함.
 
 컨트롤러 업데이트:
 
- MemberController에서는 UserDetails 형식으로 반환하는 경우는 폼 로그인이며, OAuth2 로그 
- 인의 경우는 OAuth2User 타입으로 반환함.
+MemberController에서는 UserDetails 형식으로 반환하는 경우는 폼 로그인이며, OAuth2 로그 
+인의 경우는 OAuth2User 타입으로 반환함.
 
 
 ![제목 없는 동영상 - Clipchamp로 제작](https://github.com/rudqls007/toy/assets/111556581/ef16af14-7691-4f61-a47d-a44512bd5a61)
