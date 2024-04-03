@@ -1,6 +1,7 @@
 package toy.project.dto;
 
 import lombok.Data;
+import toy.project.constant.ItemSellStatus;
 
 import java.time.LocalDateTime;
 
@@ -15,7 +16,7 @@ public class ItemDto {
 
     private String itemDetail;
 
-    private String sellStatCd;
+    private ItemSellStatus itemSellStatus;
 
     private LocalDateTime regTime;
 

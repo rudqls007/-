@@ -18,21 +18,21 @@ public class ItemImgService {
 
 
     /* value 어노테이션을 통해 applicaiotn.properties 파일에 등록한 itemimgLocation 값을 불러와서 itemImgLocation 변수에 넣어줌 */
-    @Value("${itemImgLocation}")
+    @Value("${itemImgLocation}")                // @Value 어노테이션을 통해 application.properties 파일에 등록한 itemImgLocation 값을 불러와서
     private String itemImgLocation;
 
     private final ItemImgRepository itemImgRepository;
 
     private final FileService fileService;
 
-    public  void  saveItemImg(ItemImg itemImg, MultipartFile itemImgFile) throws Exception {
+    public void saveItemImg(ItemImg itemImg, MultipartFile itemImgFile) throws Exception {
         String oriImgName = itemImgFile.getOriginalFilename();
         String imgName = "";
         String imgUrl = "";
 
 
         // 파일 업로드
-        if (!StringUtils.isEmpty(oriImgName)) {
+        if(!StringUtils.isEmpty(oriImgName)){
             /* 사용자가 상품의 이미지를 등록했다면 저장할 경로와 파일의 이름, 파일을 파일의 바이트 배열을 파일 업로드 파라미터로
             *  uploadFIle 메소드 호출함. 호출 결과 로컬에 저장된 파일의 이름을 imgName 변수에 저장*/
             imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());

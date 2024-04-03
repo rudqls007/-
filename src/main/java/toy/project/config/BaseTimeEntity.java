@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -24,8 +25,10 @@ public abstract class BaseTimeEntity {
 
     @CreatedDate
     @Column(updatable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd' 'HH:mm:ss")
     private LocalDateTime regTime;
 
     @LastModifiedDate
+    @DateTimeFormat(pattern = "yyyy-MM-dd' 'HH:mm:ss")
     private LocalDateTime updateTime;
 }

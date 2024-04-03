@@ -75,7 +75,7 @@
              - start : (현재 페이지 번호/보여줄 페이지수) + 1
              - end : start + (보여줄 페이지 수 - 1)  -->
         <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
-            <ul class="pagination justify-content-center mt-2 mb-2">
+            <ul class="pagination justify-content-center mt-4 mb-4">
                 <!-- 첫 번째 페이지면 이전 페이지로 이동하는 <Prev> 버튼을 선택 불가능하도록 disabled 클래스를 추가. -->
                 <li class="page-item" th:classappend="${items.first}?'disabled'">
                     <!-- <Prev> 버튼 클릭 시 현재 페이지에서 이전 페이지로 이동하도록 page 함수를 호출 -->
