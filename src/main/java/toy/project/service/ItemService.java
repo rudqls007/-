@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import toy.project.dto.ItemFormDto;
 import toy.project.dto.ItemImgDto;
 import toy.project.dto.ItemSearchDto;
+import toy.project.dto.MainItemDto;
 import toy.project.entity.Item;
 import toy.project.entity.ItemImg;
 import toy.project.repository.ItemImgRepository;
@@ -95,10 +96,16 @@ public class ItemService {
     }
 
     /* 상품 조회 조건과 페이지 정보를 파라미터로 받아서 상품 데이터를 조회하는 메소드
-    *  데이터의 수정이 일어나지 않으므로최적화를 위해 readOnly = true 지정 */
+    *  데이터의 수정이 일어나지 않으므로 최적화를 위해 readOnly = true 지정 */
     @Transactional(readOnly = true)
     public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
         return itemRepository.getAdminItemPage(itemSearchDto, pageable);
+    }
+
+    /* 메인 페이지에 보여줄 상품 데이터를 조회하는 메소드 */
+    @Transactional
+    public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+        return itemRepository.getMainItemPage(itemSearchDto, pageable);
     }
 
 }
