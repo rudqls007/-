@@ -4,8 +4,8 @@
       layout:decorate="~{layouts/default_layout}">
 
 <head>
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta name="_csrf" th:content="${_csrf?.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf?.headerName}"/>
 </head>
 
 <!-- 사용자 스크립트 추가 -->
@@ -17,6 +17,7 @@
             var header = $("meta[name='_csrf_header']").attr("content");
 
             var url = "/order/" + orderId + "/cancel";
+            /* 취소할 주문 번호를 파라미터로 넘겨줌 */
             var paramData = {
                 orderId : orderId,
             };
@@ -34,6 +35,7 @@
                 },
                 dataType : "json",
                 cache   : false,
+                /* 주문이 정상적으로 취소됐으면 현재 페이지로 다시 redirect 함 */
                 success  : function(result, status){
                     alert("주문이 취소 되었습니다.");
                     location.href='/orders/' + [[${page}]];
@@ -127,7 +129,6 @@
                     <span aria-hidden='true'>Next</span>
                 </a>
             </li>
-
         </ul>
     </div>
 

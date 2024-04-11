@@ -1,7 +1,6 @@
 package toy.project.controller;
 
 import jakarta.validation.Valid;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -63,21 +62,34 @@ public class OrderController {
         return new ResponseEntity<Long>(orderId, HttpStatus.OK);
     }
 
+    @GetMapping(value = {"/orders", "/orders/{page}"})
+    public String orderHist(@PathVariable("page") Optional<Integer> page, Principal principal, Model model){
 
-    @GetMapping({"/orders", "/orders{page}"})
-    public String orderHist(@PathVariable("page") Optional<Integer> page,
-                            Principal principal, Model model) {
-        /* 한 번에 가지고 올 주문 개수를 5개로 함 */
+        /* 한 번에 가지고 올 주문 개수를 4개로 함 */
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
+        /* 현재 로그인한 회원은 이메일과 페이징 개체를 파라미터로 전달하여 화면에 전달한 주문 목록 데이터를 리턴 값으로 받음. */
+        Page<OrderHistDto> ordersHistDtoList = orderService.getOrderList(principal.getName(), pageable);
 
-        /* 현재 로그인한 회원은 이메일과 페이징 개체를 파라미터로 전달하여 화면에 전달한 주문 목록 데이터를 리턴 값으로 받음.  */
-        Page<OrderHistDto> orderHistDtoList =
-                orderService.getOrderList(principal.getName(), pageable);
-
-        model.addAttribute("orders", orderHistDtoList);
+        model.addAttribute("orders", ordersHistDtoList);
         model.addAttribute("page", pageable.getPageNumber());
         model.addAttribute("maxPage", 5);
 
         return "order/orderHist";
+    }
+
+
+    /* 주문 취소 요청 메소드 ( 비동기 ) */
+    @PostMapping("/order/{orderId}/cancel")
+    public @ResponseBody ResponseEntity cancelOrder(@PathVariable("orderId") Long orderId, Principal principal) {
+
+        /* 자바스크립트에서 취소할 주문 번호는 조작이 가능하므로 다른 사람의 주문을 취소하지 못하도록
+        *  주문 취소 권한을 검사함. */
+        if (!orderService.validateOrder(orderId, principal.getName())) {
+            return  new ResponseEntity<String>("주문 취소 권한이 없습니다.",HttpStatus.FORBIDDEN);
+        }
+
+        /* 주문 취소 로직을 호출 */
+        orderService.cancelOrder(orderId);
+        return new ResponseEntity<Long>(orderId, HttpStatus.OK);
     }
 }

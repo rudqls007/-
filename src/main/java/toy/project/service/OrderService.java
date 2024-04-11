@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 import toy.project.dto.OrderDto;
 import toy.project.dto.OrderHistDto;
 import toy.project.dto.OrderItemDto;
@@ -52,12 +53,12 @@ public class OrderService {
     }
 
     @Transactional(readOnly = true)
-    public Page<OrderHistDto> getOrderList(String email, Pageable pageable) {
+    public Page<OrderHistDto> getOrderList(String loginId, Pageable pageable) {
 
-        /* 유저의 email과 페이징 조건을 이용하여 주문 목록을 조회함. */
-        List<Order> orders = orderRepository.findOrders(email, pageable);
+        /* 유저의 loginId와 페이징 조건을 이용하여 주문 목록을 조회함. */
+        List<Order> orders = orderRepository.findOrders(loginId, pageable);
         /* 유저의 주문 총 개수를 구함. */
-        Long totalCount = orderRepository.countOrder(email);
+        Long totalCount = orderRepository.countOrder(loginId);
 
         List<OrderHistDto> orderHistDtos = new ArrayList<>();
 
@@ -85,11 +86,26 @@ public class OrderService {
         return new PageImpl<OrderHistDto>(orderHistDtos, pageable, totalCount);
     }
 
+    @Transactional(readOnly = true)
+    public boolean validateOrder(Long orderId, String loginId) {
+        /* 현재 로그인한 사용자와 주문 데이터를 생성한 사용자가 같은지 검사함 */
+        Member curMember = memberRepository.findByLoginId(loginId);
+        Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
+        Member savedMember = order.getMember();
+
+        /* 같지 않으면 false 반환 */
+        if (!StringUtils.equals(curMember.getLoginId(), savedMember.getLoginId())) {
+            return false;
+        }
+
+        return true;
+    }
 
 
     public void cancelOrder(Long orderId){
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(EntityNotFoundException::new);
+        /* 주문 취소 상태로 변경하면 변경 감지 기능에 의해서 트랜잭션이 끝날 때 update 쿼리가 실행됨. */
         order.cancelOrder();
     }
 }

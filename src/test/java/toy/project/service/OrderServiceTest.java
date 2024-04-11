@@ -87,18 +87,22 @@ class OrderServiceTest {
     @Test
     @DisplayName("주문 취소 테스트")
     public void cancelOrder(){
+        /* 상품과 회원 데이터 생성 */
         Item item = saveItem();
         Member member = saveMember();
+
 
         OrderDto orderDto = new OrderDto();
         orderDto.setCount(10);
         orderDto.setItemId(item.getId());
+        /* 주문 데이터를 생성하고 생성한 주문 엔티티를 조회함. */
         Long orderId = orderService.order(orderDto, member.getEmail());
-
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(EntityNotFoundException::new);
+        /* 해당 주문을 취소 */
         orderService.cancelOrder(orderId);
 
+        /* 취소 후 상품 재고가 처음 재고 개수인 100개와 동일하다면 테스트 통과 */
         assertEquals(OrderStatus.CANCEL, order.getOrderStatus());
         assertEquals(100, item.getStockNumber());
     }
