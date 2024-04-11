@@ -32,9 +32,9 @@
 - [프로젝트 소개](#프로젝트-소개)
 - [프로젝트 생성 및 개발 환경](#프로젝트-생성-및-개발-환경)
 - [bulid.gradle](#bulid)
-- [개발 기간 및 작업 관리](#개발-기간-및-작업-관리)
+- [성능 개선](#성능-개선)
 - [트러블 슈팅](#트러블-슈팅)
-- [페이지 별 기능](#페이지-별-기능)
+- [기능](#기능)
 
 ## 프로젝트 소개
 - SpringBoot와 JPA를 통해 이커머스 쇼핑 웹 사이트를 개발합니다.
@@ -166,7 +166,7 @@
 
 ![스크린샷 2024-04-11 183757](https://github.com/rudqls007/toy/assets/111556581/992044fa-e2d4-4238-a4aa-32eca7bf1613)
 
-OrderService 클래스에 구현한 getOrderList() 메소드에서 for문을 순회하면서 order.getOrderItems()를 호출할 때마다 orders 리스트의 사이즈 만큼의 쿼리문이 실행됨.
+OrderService 클래스에 구현한 getOrderList() 메소드에서 for문을 순회하면서 order.getOrderItems()를 호출할 때마다 orders 리스트의 사이즈 만큼의 쿼리문이 실행됨.</br>
 만약 사이즈가 1000이었다면 1000번의 쿼리문이 더 실행되는 것임.
 
 ![스크린샷 2024-04-11 183402](https://github.com/rudqls007/toy/assets/111556581/7c7412fa-2af3-4f60-8914-62ca0f881101)
