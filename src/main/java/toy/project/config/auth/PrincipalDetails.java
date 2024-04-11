@@ -74,7 +74,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     /**
      * UserDetails 구현
      * 계정 만료 여부
-     * true : 만료안됨
+     * true : 만료 안됨
      * false : 만료됨
      */
     @Override

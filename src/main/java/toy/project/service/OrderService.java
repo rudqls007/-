@@ -32,11 +32,11 @@ public class OrderService {
     private final ItemImgRepository itemImgRepository;
 
 
-    public Long order(OrderDto orderDto, String email) {
+    public Long order(OrderDto orderDto, String loginId) {
         /* 주문할 상품을 조회함. */
         Item item = itemRepository.findById(orderDto.getItemId()).orElseThrow(EntityNotFoundException::new);
         /* 현재 로그인한 회원의 이메일 정보를 이용해서 회원 정보를 조회함. */
-        Member member = memberRepository.findByEmail(email);
+        Member member = memberRepository.findByLoginId(loginId);
 
         List<OrderItem> orderItemList = new ArrayList<>();
         /* 주문할 상품 엔티티와 주문 수량을 이용하여 주문 상품 엔티티를 생성 */

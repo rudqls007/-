@@ -77,7 +77,7 @@ public class Member extends BaseEntity {
         /* 스프링 시큐리티 설정 클래스에 등록한 BcrypPasswordEncoder를 파라미터로 넘겨서 비밀번호를 암호화 함. */
         String password = passwordEncoder.encode(memberFromDto.getPassword());
         member.setPassword(password);
-        member.setRole(Role.ADMIN);
+        member.setRole(Role.USER);
 
         return member;
     }
@@ -92,9 +92,10 @@ public class Member extends BaseEntity {
     }
 
     @Builder(builderClassName = "OAuth2Register", builderMethodName = "oauth2Register")
-    public Member(String name, String loginId, String password, String email, Role role, String provider, String providerId) {
+    public Member(String name, String loginId, String oriPassword, String password, String email, Role role, String provider, String providerId) {
         this.name = name;
         this.loginId =loginId;
+        this.oriPassword = oriPassword;
         this.password = password;
         this.email = email;
         this.role = role;

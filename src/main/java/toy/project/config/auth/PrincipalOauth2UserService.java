@@ -44,7 +44,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             byUsername = Member.oauth2Register()
                     .loginId(email)
                     .name(name)
-                    .password(password).email(email).role(role)
+                    .password(password).oriPassword(password).email(email).role(role)
                     .provider(provider).providerId(providerId)
                     .build();
             memberRepository.save(byUsername);
