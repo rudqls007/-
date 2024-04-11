@@ -37,6 +37,8 @@ public class Member extends BaseEntity {
 
     private String name;
 
+    private String oriPassword;
+
     private String password;
 
     private String picture;
@@ -71,6 +73,7 @@ public class Member extends BaseEntity {
         member.setZipcode(memberFromDto.getZipcode());
         member.setStreetAddress(memberFromDto.getStreetAddress());
         member.setDetailAddress(memberFromDto.getDetailAddress());
+        member.setOriPassword(memberFromDto.getPassword());
         /* 스프링 시큐리티 설정 클래스에 등록한 BcrypPasswordEncoder를 파라미터로 넘겨서 비밀번호를 암호화 함. */
         String password = passwordEncoder.encode(memberFromDto.getPassword());
         member.setPassword(password);
@@ -98,5 +101,26 @@ public class Member extends BaseEntity {
         this.provider = provider;
         this.providerId = providerId;
     }
+
+
+    /**
+     * 회원수정 메소드
+     */
+    public void updateUsername(String name) { this.name = name; }
+
+    public void updatePassword(String password) {
+        this.password = password;
+    }
+
+    public void updateOriPassword(String oriPassword) {
+        this.oriPassword = oriPassword;
+    }
+
+    public void updateAddress(String zipcode) { this.zipcode = zipcode; }
+
+    public void updateStreetAddress(String streetAddress) { this.streetAddress = streetAddress; }
+
+    public void updateDetailAddress(String detailAddress) { this.detailAddress = detailAddress; }
+
 
 }

@@ -9,14 +9,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import toy.project.config.auth.PrincipalDetails;
+import toy.project.constant.Role;
 import toy.project.dto.MemberFormDto;
 import toy.project.entity.Member;
+import toy.project.repository.MemberRepository;
 import toy.project.service.MemberService;
 
+import java.security.Principal;
 import java.util.Map;
+
+import static toy.project.constant.Role.*;
 
 
 @RequestMapping("/members")
@@ -26,6 +32,8 @@ import java.util.Map;
 public class MemberController {
 
     private final MemberService memberService;
+
+    private final MemberRepository memberRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -109,5 +117,28 @@ public class MemberController {
     public String loginError(Model model) {
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호가 맞지 않습니다.");
         return "/member/memberLoginForm";
+    }
+
+
+    /* 회원정보 조회 */
+    @GetMapping("/myInfo")
+    public String memberInfo(Principal principal, ModelMap modelMap, Member member){
+        String loginId = principal.getName();
+        Member memberId = memberRepository.findByLoginId(loginId);
+        modelMap.addAttribute("member", memberId);
+
+        if (memberId.getRole() == USER) {
+            System.out.println("USER LOGIN");
+            return "mypage/mypageInfo";
+        }
+        if (memberId.getRole() == ADMIN) {
+            System.out.println("ADMIN LOGIN");
+            return "mypage/mypageInfo";
+        }
+        if (memberId.getRole() == SOCIAL) {
+            System.out.println("SOCIAL LOGIN");
+            return "mypage/OAuthMypageInfo";
+        }
+        return "null";
     }
 }

@@ -42,7 +42,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         //DB에 없는 사용자라면 회원가입처리
         if(byUsername == null){
             byUsername = Member.oauth2Register()
-                    .loginId(name)
+                    .loginId(email)
                     .name(name)
                     .password(password).email(email).role(role)
                     .provider(provider).providerId(providerId)
