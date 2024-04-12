@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import toy.project.dto.CartDetailDto;
 import toy.project.dto.CartItemDto;
 import toy.project.entity.Cart;
 import toy.project.entity.CartItem;
@@ -13,6 +14,9 @@ import toy.project.repository.CartItemRepository;
 import toy.project.repository.CartRepository;
 import toy.project.repository.ItemRepository;
 import toy.project.repository.MemberRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -52,5 +56,27 @@ public class CartService {
             cartItemRepository.save(cartItem);
             return cartItem.getId();
         }
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<CartDetailDto> getCartList(String loginId) {
+
+        List<CartDetailDto> cartDetailDtoList = new ArrayList<>();
+
+        /* 로그인한 회원을 찾음. */
+        Member member = memberRepository.findByLoginId(loginId);
+        System.out.println("member = " + member);
+        /* 현재 로그인한 회원의 장바구니 엔티티를 조회함. */
+        Cart cart = cartRepository.findByMemberId(member.getId());
+        /* 장바구니에 상품을 한 번도 안 담았을 경우 장바구니 엔티티가 없으므로 빈 리스트를 반환 */
+        if (cart == null) {
+            return cartDetailDtoList;
+        }
+
+        /* 장바구니에 담겨 있는 상품 정보를 조회 */
+        cartItemRepository.findCartDetailDtoList(cart.getId());
+
+        return cartDetailDtoList;
     }
 }
