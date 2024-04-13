@@ -67,7 +67,6 @@ public class CartController {
         System.out.println(principal.getName());
         /* 조회한 장바구니 상품을 뷰에 전달 */
         model.addAttribute("cartItems", cartDetailList);
-        System.out.println("cartDetailList = " + cartDetailList);
         return "cart/cartList";
     }
 
