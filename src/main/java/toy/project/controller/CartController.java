@@ -11,9 +11,11 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import toy.project.dto.CartDetailDto;
 import toy.project.dto.CartItemDto;
+import toy.project.dto.CartOrderDto;
 import toy.project.service.CartService;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -100,6 +102,31 @@ public class CartController {
         /* 체크 로직이 성공적으로 수행 되었다면 상품을 삭제함. */
         cartService.deleteCartItem(cartItemId);
         return new ResponseEntity<Long>(cartItemId, HttpStatus.OK);
+    }
+
+    @PostMapping("/cart/orders")
+    public @ResponseBody ResponseEntity orderCartItem(@RequestBody CartOrderDto cartOrderDto, Principal principal) {
+
+        List<CartOrderDto> cartOrderDtoList = cartOrderDto.getCartOrderDtoList();
+
+
+        /* 주문할 상품을 선택했는지 체크하는 메소드 */
+        if (cartOrderDtoList == null || cartOrderDtoList.size() == 0) {
+            return new ResponseEntity<String>("주문할 상품을 선택해주세요.", HttpStatus.BAD_REQUEST);
+        }
+
+        /* 주문 권한을 체크하는 메소드 */
+        for (CartOrderDto cartOrder : cartOrderDtoList) {
+            if (!cartService.validateCartItem(cartOrder.getCartItemId(), principal.getName())) {
+                return new ResponseEntity<String>("주문 권한이 없습니다.", HttpStatus.FORBIDDEN);
+            }
+
+
+        }
+        /* 주문 로직 호출 결과 생성된 주문 번호를 반환 받음. */
+        Long orderId = cartService.orderCartItem(cartOrderDtoList, principal.getName());
+        /* 생성된 주문 번호와 요청이 성공했따는 HTTP 응답 상태 코드 반환 */
+        return new ResponseEntity<Long>(orderId, HttpStatus.OK);
     }
 
 }

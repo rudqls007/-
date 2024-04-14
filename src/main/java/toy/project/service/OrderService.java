@@ -108,4 +108,30 @@ public class OrderService {
         /* 주문 취소 상태로 변경하면 변경 감지 기능에 의해서 트랜잭션이 끝날 때 update 쿼리가 실행됨. */
         order.cancelOrder();
     }
+
+    public Long orders(List<OrderDto> orderDtoList, String loginId) {
+
+        Member member = memberRepository.findByLoginId(loginId);
+        List<OrderItem> orderItemList = new ArrayList<>();
+
+        /* 주문할 상품 리스트를 만들어 줌 */
+        for (OrderDto orderDto : orderDtoList) {
+            /* 아이디 체크 로직 */
+            Item item = itemRepository.findById(orderDto.getItemId()).orElseThrow(EntityNotFoundException::new);
+
+            OrderItem orderItem = OrderItem.createOrderItem(item, orderDto.getCount());
+            orderItemList.add(orderItem);
+
+
+        }
+
+
+        /* 현재 로그인한 회원과 주문 상품 목록을 이용하여 주문 엔티티를 만듦*/
+        Order order = Order.createOrder(member, orderItemList);
+        /* 주문 데이터 저장 */
+        orderRepository.save(order);
+
+        return order.getId();
+
+    }
 }
