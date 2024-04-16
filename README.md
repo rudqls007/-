@@ -412,6 +412,8 @@ MemberController에서는 UserDetails 형식으로 반환하는 경우는 폼 �
 
 ### 회원 가입 시 이메일 인증 기능 구현
 
+![20240417_004410](https://github.com/rudqls007/toy/assets/111556581/38f7a654-dace-4ca5-9ab6-53fd753e506b)
+
 - spring-boot-starter-mail 라이브러리 사용
 
 - application.properties 에 구글 smtp 설정 추가
@@ -437,7 +439,11 @@ MemberController에서는 UserDetails 형식으로 반환하는 경우는 폼 �
 ![20240417_003009 (1)](https://github.com/rudqls007/toy/assets/111556581/15631829-0f3d-4fde-8fe1-544d08500095)
 
 
-### 주문 취소 기능 
+### 상품 주문 및 주문 취소 기능 
+
+- 상품 주문
+
+![20240417_003940](https://github.com/rudqls007/toy/assets/111556581/e063b9ad-28a9-4bd0-9be3-f2626f92ffd3)
 
 - 주문 취소
 
