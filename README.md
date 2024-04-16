@@ -157,6 +157,9 @@
 
 
 
+## ERD
+
+![image](https://github.com/rudqls007/toy/assets/111556581/553542c3-102a-44a4-8bec-5e01e6da8f41)
 
 
 	
