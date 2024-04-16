@@ -419,7 +419,7 @@ MemberController에서는 UserDetails 형식으로 반환하는 경우는 폼 �
 
 - application.properties 에 구글 smtp 설정 추가
 
-- mail controller와 mail service 설계
+- mailController와 mailService 설계
 
 ### 장바구니 담기, 수량 수정, 삭제, 주문 기능 
 
