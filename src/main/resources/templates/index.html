@@ -3,44 +3,46 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default_layout}">
 
+
 <!-- 사용자 CSS 추가 -->
 <th:block layout:fragment="css">
-    <style>
-        .flex-container {
-            max-width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
 
-        .container {
-            justify-content: center;
-        }
-
-        .card {
-            flex: 0 0 calc(25% - 1rem);
-            margin: 0.5rem;
-            width: 15rem;
-        }
-    </style>
 </th:block>
 
 <div layout:fragment="content">
-    <div class="container">
-        <div class="flex-container">
-        <div th:each="item, status: ${items.getContent()}">
-            <div class="card-body">
-                    <a th:href="'/item/' +${item.id}" class="card text-center mb-3">
-                        <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemName}" height="300">
-                        <div class="card-body">
-                            <h5 class="card-title">[[${item.itemName}]]</h5>
-                            <p class="card-text">[[${item.itemDetail}]]</p>
-                            <p><strong>[[${item.price}]]원</strong></p>
-                        </div>
-                    </a>
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Dress the Part, Own the Moment.</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Dress Beyond Ordinary, Define Extraordinary.</p>
             </div>
-         </div>
-    </div>
-</div>
-
+        </div>
+    </header>
+    <!-- Section-->
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div th:each="item, status: ${items.getContent()}" class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemName}" height="300">
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="card-title">[[${item.itemName}]]</h5>
+                                <!-- Product price-->
+                                <p><strong>[[${item.price}]]원</strong></p>
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="'/item/' +${item.id}">View options</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+</section>
 </div>

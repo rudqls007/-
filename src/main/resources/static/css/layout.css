@@ -45,3 +45,18 @@ li {
     font-weight: 400;
     font-style: normal;
 }
+
+
+
+
+.carousel-inner {
+    height: 500px; /* 이미지 높이 변경 */
+}
+
+.carousel-item {
+    height: 100%;
+}
+
+.d-block {
+    height: 100%;
+}

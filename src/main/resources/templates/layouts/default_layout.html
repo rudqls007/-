@@ -10,7 +10,7 @@
 <!-- th:fragment=header.html 로 치환-->
 <th:block th:replace="~{fragments/header :: header}"></th:block>
 
-    <div class="container flex-column min-vh-100 py-3">
+    <div class="flex-column min-vh-100">
         <div>
             <th:block layout:fragment="content"></th:block>
         </div>
