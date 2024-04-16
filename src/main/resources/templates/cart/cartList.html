@@ -66,7 +66,15 @@
                 dataType : "json",
                 cache   : false,
                 success  : function(result, status){
-                    console.log("cartItem count update success");
+                    Swal.fire({
+                        text: count+"개로 변경되었습니다.",
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        button: {
+                            text: '확인',
+                            closeModal: true
+                        }
+                    });
                 },
                 error : function(jqXHR, status, error){
 
@@ -98,7 +106,17 @@
                 dataType : "json",
                 cache   : false,
                 success  : function(result, status){
-                    location.href='/cart';
+                    Swal.fire({
+                        text: "장바구니 상품이 정상적으로 삭제되었습니다.",
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        button: {
+                            text: '확인',
+                            closeModal: true
+                        }
+                    }).then(() => {
+                        location.href='/cart';
+                    });
                 },
                 error : function(jqXHR, status, error){
 
@@ -145,8 +163,17 @@
                 dataType : "json",
                 cache   : false,
                 success  : function(result, status){
-                    alert("주문이 완료 되었습니다.");
-                    location.href='/orders';
+                    Swal.fire({
+                        text: "구매가 완료되었습니다.",
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        button: {
+                            text: '확인',
+                            closeModal: true
+                        }
+                    }).then(() => {
+                        location.href='/orders';
+                    });
                 },
                 error : function(jqXHR, status, error){
 

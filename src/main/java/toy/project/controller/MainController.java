@@ -27,7 +27,7 @@ public class MainController {
     @GetMapping("/")
     public String main(ItemSearchDto itemSearchDto, @RequestParam("page") Optional<Integer> page, Model model)throws Exception {
 
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 20);
         Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
         model.addAttribute("items", items);
         model.addAttribute("itemSearchDto", itemSearchDto);

@@ -7,12 +7,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.util.StringUtils;
 import toy.project.dto.ItemFormDto;
 import toy.project.dto.ItemImgDto;
 import toy.project.dto.ItemSearchDto;
 import toy.project.dto.MainItemDto;
+import toy.project.entity.CartItem;
 import toy.project.entity.Item;
 import toy.project.entity.ItemImg;
+import toy.project.entity.Member;
 import toy.project.repository.ItemImgRepository;
 import toy.project.repository.ItemRepository;
 
@@ -107,5 +110,8 @@ public class ItemService {
     public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
         return itemRepository.getMainItemPage(itemSearchDto, pageable);
     }
+
+
+
 
 }

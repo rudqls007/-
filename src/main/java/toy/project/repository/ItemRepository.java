@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 import toy.project.entity.Item;
+import toy.project.entity.Member;
 
 import java.util.List;
 
@@ -42,4 +43,5 @@ public interface ItemRepository extends JpaRepository<Item, Long>, QuerydslPredi
      */
     @Query(value = "select * from item i where i.item_detail like %:itemDetail% order by  i.price desc", nativeQuery = true)
     List<Item> findByItemDetailByNative(@Param("itemDetail") String itemDetail);
+
 }
