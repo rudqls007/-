@@ -431,7 +431,7 @@ MemberController에서는 UserDetails 형식으로 반환하는 경우는 폼 �
 
 - 장바구니 수량 수정
 
-![20240417_010847](https://github.com/rudqls007/SpringBoot-JPA-ShopProject/assets/111556581/45706e08-c05b-4c5e-b1fb-8defbc2089f3)
+![20240417_011314](https://github.com/rudqls007/SpringBoot-JPA-ShopProject/assets/111556581/9cebe456-4994-454e-a08a-5d3b2f442cdd)
 
 - 장바구니 삭제
 
