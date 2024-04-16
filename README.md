@@ -412,7 +412,8 @@ MemberController에서는 UserDetails 형식으로 반환하는 경우는 폼 �
 
 ### 회원 가입 시 이메일 인증 기능 구현
 
-![20240417_004410](https://github.com/rudqls007/toy/assets/111556581/38f7a654-dace-4ca5-9ab6-53fd753e506b)
+![20240417_004819](https://github.com/rudqls007/toy/assets/111556581/7611c807-99c3-44d9-b9f0-0b683bf3ce60)
+
 
 - spring-boot-starter-mail 라이브러리 사용
 
