@@ -40,7 +40,7 @@
 ## 프로젝트 소개
 
 - MainPage
-- 
+
 ![20240416_230009](https://github.com/rudqls007/toy/assets/111556581/26045e72-758c-4c45-8465-b03487b8b674)
 
 - SpringBoot와 JPA를 통해 이커머스 쇼핑 웹 사이트를 개발합니다.
