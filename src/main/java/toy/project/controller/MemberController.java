@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import toy.project.config.auth.PrincipalDetails;
 import toy.project.constant.Role;
 import toy.project.dto.MemberFormDto;
+import toy.project.dto.MemberUpdateDto;
 import toy.project.entity.Member;
 import toy.project.repository.MemberRepository;
 import toy.project.service.MemberService;
@@ -38,8 +39,6 @@ public class MemberController {
     private final PasswordEncoder passwordEncoder;
 
 
-
-
     @GetMapping("/new")
     public String memberForm(Model model) {
         model.addAttribute("memberFormDto", new MemberFormDto());
@@ -47,10 +46,10 @@ public class MemberController {
     }
 
     @PostMapping("/new")
-    public String memberForm(@Valid MemberFormDto memberFormDto, BindingResult bindingResult, Model model){
+    public String memberForm(@Valid MemberFormDto memberFormDto, BindingResult bindingResult, Model model) {
 
 
-        if(bindingResult.hasErrors()) {         // 에러가 있다면 회원 가입 페이지로 이동
+        if (bindingResult.hasErrors()) {         // 에러가 있다면 회원 가입 페이지로 이동
             return "member/memberForm";
         }
 
@@ -85,7 +84,7 @@ public class MemberController {
     // !!!! OAuth로 로그인 시 이 방식대로 하면 CastException 발생함
     @GetMapping("/form/loginInfo")
     @ResponseBody
-    public String formLoginInfo(Authentication authentication, @AuthenticationPrincipal PrincipalDetails principalDetails){
+    public String formLoginInfo(Authentication authentication, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
         String member = principal.getName();
@@ -99,7 +98,7 @@ public class MemberController {
 
     @GetMapping("/oauth/loginInfo")
     @ResponseBody
-    public String oauthLoginInfo(Authentication authentication, @AuthenticationPrincipal OAuth2User oAuth2UserPrincipal){
+    public String oauthLoginInfo(Authentication authentication, @AuthenticationPrincipal OAuth2User oAuth2UserPrincipal) {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         Map<String, Object> attributes = oAuth2User.getAttributes();
         System.out.println(attributes);
@@ -112,7 +111,6 @@ public class MemberController {
     }
 
 
-
     @GetMapping("/login/error")
     public String loginError(Model model) {
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호가 맞지 않습니다.");
@@ -122,7 +120,7 @@ public class MemberController {
 
     /* 회원정보 조회 */
     @GetMapping("/myInfo")
-    public String memberInfo(Principal principal, ModelMap modelMap, Member member){
+    public String memberInfo(Principal principal, ModelMap modelMap, Member member) {
         String loginId = principal.getName();
         Member memberId = memberRepository.findByLoginId(loginId);
         modelMap.addAttribute("member", memberId);
@@ -140,5 +138,39 @@ public class MemberController {
             return "mypage/OAuthMypageInfo";
         }
         return "null";
+    }
+
+
+    /* 회원 수정하기 전 비밀번호 확인 */
+    @GetMapping("/checkPwdForm")
+    public String checkPwdView() {
+        return "member/passwordCheckForm";
+    }
+
+    @GetMapping("/checkPwd")
+    @ResponseBody
+    public boolean checkPassword(Principal principal, Member member, @RequestParam String checkPassword, Model model) {
+
+        String loginId = principal.getName();
+        Member memberId = memberRepository.findByLoginId(loginId);
+        return memberService.checkPassword(memberId, checkPassword);
+    }
+
+    // 회원 정보 변경 폼
+    @GetMapping(value = "/updateForm")
+    public String updateMemberForm(Principal principal, Model model) {
+        String loginId = principal.getName();
+        Member memberId = memberRepository.findByLoginId(loginId);
+        model.addAttribute("member", memberId);
+
+        return "/member/memberUpdateForm";
+    }
+
+    // 회원 정보 변경 (POST)
+    @PostMapping(value = "/updateForm")
+    public String updateMember(@Valid MemberUpdateDto memberUpdateDto, Model model) {
+        model.addAttribute("member", memberUpdateDto);
+        memberService.updateMember(memberUpdateDto);
+        return "redirect:/members/myInfo";
     }
 }

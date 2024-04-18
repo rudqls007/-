@@ -2,13 +2,17 @@ package toy.project.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ResponseBody;
+import toy.project.dto.MemberUpdateDto;
 import toy.project.entity.Member;
 import toy.project.repository.MemberRepository;
 
@@ -33,6 +37,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class MemberService implements UserDetailsService {
+
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
 
     private final MemberRepository memberRepository;
 
@@ -100,6 +107,37 @@ public class MemberService implements UserDetailsService {
         }
     }
 
+    /** 비밀번호 일치 확인 **/
+    @ResponseBody
+    public boolean checkPassword(Member member, String checkPassword) {
+        Member findMember = memberRepository.findByLoginId(member.getLoginId());
+        if(findMember == null) {
+            throw new IllegalStateException("없는 회원입니다.");
+        }
+        String realPassword = member.getPassword();
+        boolean matches = passwordEncoder.matches(checkPassword, realPassword);
+        System.out.println(matches);
+        return matches;
+    }
+
+    /** 회원정보 수정 **/
+    public Long updateMember(MemberUpdateDto memberUpdateDto) {
+        Member member = memberRepository.findByLoginId(memberUpdateDto.getLoginId());
+        member.updateUsername(memberUpdateDto.getName());
+        member.updateZipcode(memberUpdateDto.getZipcode());
+        member.updateStreetAddress(memberUpdateDto.getStreetAddress());
+        member.updateDetailAddress(memberUpdateDto.getDetailAddress());
+        member.updateOriPassword(memberUpdateDto.getPassword());
+
+        // 회원 비밀번호 수정을 위한 패스워드 암호화
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodePw = encoder.encode(memberUpdateDto.getPassword());
+        member.updatePassword(encodePw);
+
+        memberRepository.save(member);
+
+        return member.getId();
+    }
 
 }
 
