@@ -61,8 +61,8 @@
         <input type="text" th:value="${member.detailAddress}" class="form-control mt-2 mb-4" readonly>
       </div>
       <div style="text-align: center">
-        <button type="button" class="btn btn-primary btn-lg" onclick="location.href='/'">홈으로</button>
-        <button type="button" class="btn btn-secondary btn-lg" onClick="location.href='/members/checkPwdForm'">회원정보 변경</button>
+        <button type="button" class="btn btn-secondary btn-lg" onclick="location.href='/'">홈으로</button>
+        <button type="button" class="btn btn-primary btn-lg" onClick="location.href='/members/checkPwdForm'">회원정보 변경</button>
       </div>
       <div>
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>

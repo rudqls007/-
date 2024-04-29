@@ -1,5 +1,6 @@
 package toy.project.controller;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,10 +15,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import toy.project.config.auth.PrincipalDetails;
 import toy.project.constant.Role;
+import toy.project.dto.MailDto;
 import toy.project.dto.MemberFormDto;
 import toy.project.dto.MemberUpdateDto;
 import toy.project.entity.Member;
 import toy.project.repository.MemberRepository;
+import toy.project.service.MailService;
 import toy.project.service.MemberService;
 
 import java.security.Principal;
@@ -37,6 +40,8 @@ public class MemberController {
     private final MemberRepository memberRepository;
 
     private final PasswordEncoder passwordEncoder;
+
+    private final MailService mailService;
 
 
     @GetMapping("/new")
@@ -172,5 +177,34 @@ public class MemberController {
         model.addAttribute("member", memberUpdateDto);
         memberService.updateMember(memberUpdateDto);
         return "redirect:/members/myInfo";
+    }
+
+    // 비밀번호 찾기
+    @GetMapping("/findMember")
+    public String findMember(Model model) {
+        return "/member/findMemberForm";
+    }
+
+    // 비밀번호 찾기시, 임시 비밀번호 담긴 이메일 보내기
+    @Transactional
+    @PostMapping("/sendEmail")
+    public String sendEmail(@RequestParam("memberEmail") String memberEmail){
+        MailDto dto = mailService.createMailAndChangePassword(memberEmail);
+        mailService.mailSend(dto);
+
+        return "/member/memberLoginForm";
+    }
+
+    // 회원 아이디 찾기
+    @PostMapping("/findId")
+    @ResponseBody
+    public String findId(@RequestParam("memberEmail") String memberEmail) {
+        String email = String.valueOf(memberRepository.findByEmail(memberEmail));
+        System.out.println("회원 이메일 = " + email);
+        if(email == null) {
+            return null;
+        } else {
+            return email;
+        }
     }
 }
