@@ -423,6 +423,25 @@ MemberController에서는 UserDetails 형식으로 반환하는 경우는 폼 �
 
 - mailController와 mailService 설계
 
+
+### 회원 정보 수정
+
+![20240430_182646](https://github.com/rudqls007/shopping_mall_project/assets/111556581/2444a266-bfbf-40b3-900b-4f998003d397)
+
+
+### 비밀번호 찾기 ( 이메일 임시 비밀번호 발급 )
+
+![20240430_182924](https://github.com/rudqls007/shopping_mall_project/assets/111556581/dd7d0408-93d7-4710-94ee-189829db12a1)
+
+- 임시 비밀번호 이메일 발송
+
+![image](https://github.com/rudqls007/shopping_mall_project/assets/111556581/49b01980-97c1-46a7-a3ca-8510345a696a)
+
+- DB 임시 비밀번호 변경 
+
+![image](https://github.com/rudqls007/shopping_mall_project/assets/111556581/56ca6ebf-53b4-479c-8521-bfa8be620eda)
+
+
 ### 장바구니 담기, 수량 수정, 삭제, 주문 기능 
 
 - 장바구니 담기
