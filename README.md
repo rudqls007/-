@@ -426,7 +426,7 @@ MemberController에서는 UserDetails 형식으로 반환하는 경우는 폼 �
 
 ### 회원 정보 수정
 
-![20240430_184706](https://github.com/rudqls007/shopping_mall_project/assets/111556581/c98c48ca-1767-496f-84d6-65d190a7cd34)
+![20240430_184020-ezgif com-video-to-gif-converter](https://github.com/rudqls007/shopping_mall_project/assets/111556581/cf29cb9f-3b0c-48f2-a206-83ecbd7c67a2)
 
 
 ### 비밀번호 찾기 ( 이메일 임시 비밀번호 발급 )
