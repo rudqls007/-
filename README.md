@@ -416,6 +416,15 @@ MemberController에서는 UserDetails 형식으로 반환하는 경우는 폼 �
 
 ### 기본적인 상품 등록, 수정, 관리 가능
 
+- 상품 등록
+
+![20240502_214810-ezgif com-video-to-gif-converter](https://github.com/rudqls007/shopping_mall_project/assets/111556581/7c960b30-076d-49e9-a317-b301f750a944)
+
+- 상품 수정
+
+![20240502_220626-ezgif com-video-to-gif-converter](https://github.com/rudqls007/shopping_mall_project/assets/111556581/2ee79634-3ad5-48a8-9569-3ce0130316bf)
+
+
 - 쇼핑몰이라면 갖추어야할 상품을 등록하고 수정하며 관리할 수 있는 기능을 모두 구현
 
 ### 회원 가입 시 이메일 인증 기능 구현
