@@ -34,6 +34,7 @@
 - [bulid.gradle](#bulid)
 - [성능 개선](#성능-개선)
 - [ERD](#ERD)
+- [RESTFUL API](#RESTFUL-API)
 - [트러블 슈팅](#트러블-슈팅)
 - [기능](#기능)
 
@@ -166,6 +167,11 @@
 ## ERD
 
 ![image](https://github.com/rudqls007/toy/assets/111556581/553542c3-102a-44a4-8bec-5e01e6da8f41)
+
+
+## RESTFUL API
+
+![image](https://github.com/rudqls007/shopping_mall_project/assets/111556581/b9db82d8-f8f5-4f82-9ebe-01343123f020)
 
 
 	
