@@ -72,7 +72,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
                         // permitAll() : 모든 사용자가 인증(로그인) 없이 해당 경로에 접근할 수 있도록 지정함.
                         .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                        .requestMatchers("/", "/members/**", "/item/**", "/images/**", "/search/**", "/board/**", "/mail").permitAll()
+                        .requestMatchers("/", "/members/**", "/item/**", "/images/**",
+                                "/search/**", "/board/**", "/mail").permitAll()
                         // /admin으로 시작하는 경로는 해당 계정이 ADMIN Role일 경우에만 접근 가능하도록 설정함.
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         // 위에서 설정한 코드들의 경로를 제외한 나머지 경로들은 모두 인증을 요구하도록 설정.

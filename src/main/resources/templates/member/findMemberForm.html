@@ -93,7 +93,7 @@
       }
       const sendEmail = document.forms["sendEmail"];
       $.ajax({
-        url : "/members/findId",
+        url : "/members/findEmail",
         type : "post",
         data : { 'memberEmail': email },
         dataType : "text",

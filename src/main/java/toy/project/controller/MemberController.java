@@ -86,20 +86,6 @@ public class MemberController {
     }
 
 
-    // !!!! OAuth로 로그인 시 이 방식대로 하면 CastException 발생함
-    @GetMapping("/form/loginInfo")
-    @ResponseBody
-    public String formLoginInfo(Authentication authentication, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-
-        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
-        String member = principal.getName();
-        System.out.println(member);
-
-        String user1 = principalDetails.getName();
-        System.out.println(user1);
-
-        return member.toString();
-    }
 
     @GetMapping("/oauth/loginInfo")
     @ResponseBody
@@ -196,9 +182,9 @@ public class MemberController {
     }
 
     // 회원 아이디 찾기
-    @PostMapping("/findId")
+    @PostMapping("/findEmail")
     @ResponseBody
-    public String findId(@RequestParam("memberEmail") String memberEmail) {
+    public String findEmail(@RequestParam("memberEmail") String memberEmail) {
         String email = String.valueOf(memberRepository.findByEmail(memberEmail));
         System.out.println("회원 이메일 = " + email);
         if(email == null) {

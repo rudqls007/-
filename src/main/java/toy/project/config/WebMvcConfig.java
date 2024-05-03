@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
 
     /* application-properties에 설정한 uploadPath 프로퍼티 값을 읽어 옴. */
+
     @Value("${uploadPath}")
     String uploadPath;
 

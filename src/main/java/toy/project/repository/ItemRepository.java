@@ -29,7 +29,7 @@ public interface ItemRepository extends JpaRepository<Item, Long>, QuerydslPredi
      * @Query 어노테이션 안에 JPQL로 작성한 쿼리문을 넣고 from 뒤에는 엔티티 클래스로 작성한 item을 지정해주었고,
      * item으로부터 데이터를 select하겠다는 것을 의미함.
      *
-     * 파라미터에 @Param 어노테이션을 이용하여 파라미터로 넘옹ㄴ 값을 JPQL에 들어갈 변수로 지정해줄 수 있음.
+     * 파라미터에 @Param 어노테이션을 이용하여 파라미터로 넘어오면 값을 JPQL에 들어갈 변수로 지정해줄 수 있음.
      * 현재는 itemDetail 변수를 "like % %" 사이에 "itemDetail"로 값이 들어가도록 작성함.
      */
 

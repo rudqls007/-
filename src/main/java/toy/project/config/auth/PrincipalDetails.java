@@ -20,10 +20,6 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     private Member member;
     private Map<String, Object> attributes;
 
-    //UserDetails : Form 로그인 시 사용
-    public PrincipalDetails(Member member) {
-        this.member = member;
-    }
 
     //OAuth2User : OAuth2 로그인 시 사용
     public PrincipalDetails(Member member, Map<String, Object> attributes) {
