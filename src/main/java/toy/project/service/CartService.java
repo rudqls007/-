@@ -88,7 +88,8 @@ public class CartService {
     public boolean validateCartItem(Long cartItemId, String loginId) {
         /* 현재 로그인한 회원을 조회함. */
         Member curMember = memberRepository.findByLoginId(loginId);
-        CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(EntityNotFoundException::new);
+        CartItem cartItem = cartItemRepository.findById(cartItemId)
+                .orElseThrow(EntityNotFoundException::new);
         /* 장바구니 상품을 저장한 회원을 조회함. */
         Member savedMember = cartItem.getCart().getMember();
 
@@ -103,14 +104,16 @@ public class CartService {
 
     /* 장바구니 상품의 수량을 업데이트 하는 메소드 */
     public void updateCartItemCount(Long cartItemId, int count) {
-        CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(EntityNotFoundException::new);
+        CartItem cartItem = cartItemRepository.findById(cartItemId)
+                .orElseThrow(EntityNotFoundException::new);
 
         cartItem.updateCount(count);
     }
 
     /* 장바구니 상품 번호를 파라미터로 받아서 삭제하는 메소드 */
     public void deleteCartItem(Long cartItemId) {
-        CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(EntityNotFoundException::new);
+        CartItem cartItem = cartItemRepository.findById(cartItemId)
+                .orElseThrow(EntityNotFoundException::new);
         cartItemRepository.delete(cartItem);
     }
 
@@ -119,7 +122,8 @@ public class CartService {
 
         /* 장바구니 페이지에서 전달받은 주문 상품 번호를 이용하여 주문 로직으로 전달할 orderDto 객체를 만ㄷ름. */
         for (CartOrderDto cartOrderDto : cartOrderDtoList) {
-            CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId()).orElseThrow(EntityNotFoundException::new);
+            CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId())
+                    .orElseThrow(EntityNotFoundException::new);
 
             OrderDto orderDto = new OrderDto();
             orderDto.setItemId(cartItem.getItem().getId());
@@ -133,7 +137,8 @@ public class CartService {
 
         /* 주문한 상품들을 장바구니에서 삭제함. */
         for (CartOrderDto cartOrderDto : cartOrderDtoList) {
-            CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId()).orElseThrow(EntityNotFoundException::new);
+            CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId())
+                    .orElseThrow(EntityNotFoundException::new);
             cartItemRepository.delete(cartItem);
 
         }

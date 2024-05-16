@@ -17,7 +17,8 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
        "new toy.project.dto.CartDetailDto(ci.id, i.itemName, i.price, ci.count, im.imgUrl)" 처럼
         new 키워드와 해당 DTO의 패키지, 클래스명을 적어줌.
         또한 생성자의 파라미터 순서는 DTO 클래스에 명시한 순으로 넣어주어야 함.*/
-    @Query("select new toy.project.dto.CartDetailDto(ci.id, i.itemName, i.price, ci.count, im.imgUrl) " +
+    @Query("select new toy.project.dto.CartDetailDto(ci.id," +
+            " i.itemName, i.price, ci.count, im.imgUrl) " +
             "from CartItem ci, ItemImg im " +
             "join ci.item i " +
             /* 장바구니에 담겨있는 상품의 대표 이미지만 가지고 오도록 조건문 작성 */

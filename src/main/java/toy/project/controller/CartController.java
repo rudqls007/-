@@ -62,7 +62,8 @@ public class CartController {
     @GetMapping("/cart")
     public String orderHist(Principal principal, Model model) {
         /* 현재 로그인한 사용자의 아이디 정보를 이용하여 장바구니에 담겨있는 상품 정보를 조회 */
-        List<CartDetailDto> cartDetailList = cartService.getCartList(principal.getName());
+        List<CartDetailDto> cartDetailList =
+                cartService.getCartList(principal.getName());
         System.out.println(principal.getName());
         /* 조회한 장바구니 상품을 뷰에 전달 */
         model.addAttribute("cartItems", cartDetailList);
@@ -72,15 +73,18 @@ public class CartController {
     /* HTTP 메소드에서 PATCH는 요청된 자원의 일부를 업데이트할 때 PATCH를 사용함.
     *  장바구니 상품의 수량만 업테이트하기 떄문에 @PatchMapping 사용 */
     @PatchMapping("/cartItem/{cartItemId}")
-    private @ResponseBody ResponseEntity updateCartItem(@PathVariable("cartItemId") Long carItemId, int count, Principal principal) {
+    private @ResponseBody ResponseEntity updateCartItem(@PathVariable("cartItemId")
+                                                            Long carItemId, int count, Principal principal) {
 
 
         /* 장바구니에 담겨있는 상품의 개수를 0개 이하로 업데이트 요청을 할 때 에러 메세지를 담아서 반환 */
         if (count <= 0) {
-            return new ResponseEntity<String>("최소 1개 이상 담아주세요", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>(
+                    "최소 1개 이상 담아주세요", HttpStatus.BAD_REQUEST);
         /* 로그인한 회원과 카트에 저장된 상품에 대한 회원이 같은지 수정 권한 체크 */
         } else if (!cartService.validateCartItem(carItemId, principal.getName())) {
-            return new ResponseEntity<String>("수정할 권한이 없습니다.", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<String>(
+                    "수정할 권한이 없습니다.", HttpStatus.FORBIDDEN);
         }
 
         /* 체크 로직이 성공적으로 수행이 되면 장바구니 상품의 개수를 업데이트함. */
@@ -91,12 +95,14 @@ public class CartController {
     /* HTTP 메소드에서 DELETE의 경우 요청된 자원을 삭제할 때 사용함.
     *  장바구니 상품을 삭제하기 떄문에 @DeleteMapping 을 사용하였움. */
     @DeleteMapping("/cartItem/{cartItemId}")
-    public @ResponseBody ResponseEntity deleteCartItem(@PathVariable("cartItemId") Long cartItemId, Principal principal) {
+    public @ResponseBody ResponseEntity deleteCartItem(@PathVariable("cartItemId")
+                                                           Long cartItemId, Principal principal) {
 
 
         /* 로그인된 회원과 장바구니 상품에 저장되어 있는 회원이 같은지 체크 로직 */
         if(!cartService.validateCartItem(cartItemId, principal.getName()))
-            return new ResponseEntity<String>("수정할 수 있는 권한이 없습니다.", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<String>(
+                    "수정할 수 있는 권한이 없습니다.", HttpStatus.FORBIDDEN);
 
 
         /* 체크 로직이 성공적으로 수행 되었다면 상품을 삭제함. */
@@ -105,7 +111,8 @@ public class CartController {
     }
 
     @PostMapping("/cart/orders")
-    public @ResponseBody ResponseEntity orderCartItem(@RequestBody CartOrderDto cartOrderDto, Principal principal) {
+    public @ResponseBody ResponseEntity orderCartItem(
+            @RequestBody CartOrderDto cartOrderDto, Principal principal) {
 
         List<CartOrderDto> cartOrderDtoList = cartOrderDto.getCartOrderDtoList();
 

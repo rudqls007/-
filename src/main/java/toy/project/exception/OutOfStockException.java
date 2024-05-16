@@ -4,6 +4,7 @@ package toy.project.exception;
 public class OutOfStockException extends RuntimeException {
 
     public OutOfStockException(String messsage) {
+
         super((messsage));
     }
 }

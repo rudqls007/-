@@ -34,7 +34,8 @@ public class OrderService {
 
     public Long order(OrderDto orderDto, String loginId) {
         /* 주문할 상품을 조회함. */
-        Item item = itemRepository.findById(orderDto.getItemId()).orElseThrow(EntityNotFoundException::new);
+        Item item = itemRepository.findById(orderDto.getItemId())
+                .orElseThrow(EntityNotFoundException::new);
         /* 현재 로그인한 회원의 이메일 정보를 이용해서 회원 정보를 조회함. */
         Member member = memberRepository.findByLoginId(loginId);
 
@@ -90,7 +91,8 @@ public class OrderService {
     public boolean validateOrder(Long orderId, String loginId) {
         /* 현재 로그인한 사용자와 주문 데이터를 생성한 사용자가 같은지 검사함 */
         Member curMember = memberRepository.findByLoginId(loginId);
-        Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(EntityNotFoundException::new);
         Member savedMember = order.getMember();
 
         /* 같지 않으면 false 반환 */
@@ -117,7 +119,8 @@ public class OrderService {
         /* 주문할 상품 리스트를 만들어 줌 */
         for (OrderDto orderDto : orderDtoList) {
             /* 아이디 체크 로직 */
-            Item item = itemRepository.findById(orderDto.getItemId()).orElseThrow(EntityNotFoundException::new);
+            Item item = itemRepository.findById(orderDto.getItemId())
+                    .orElseThrow(EntityNotFoundException::new);
 
             OrderItem orderItem = OrderItem.createOrderItem(item, orderDto.getCount());
             orderItemList.add(orderItem);

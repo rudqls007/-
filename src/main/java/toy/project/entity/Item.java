@@ -77,7 +77,8 @@ public class Item extends BaseEntity {
         int restStock = this.stockNumber - stockNumber;
         if (restStock < 0) {
             /* 상품의 재고가 주문 수량보다 적을 경우 재고 부족 예외를 발생시킴 */
-            throw new OutOfStockException("상품의 재고가 부족합니다. (현재 재고 수량 :" + this.stockNumber + ")");
+            throw new OutOfStockException(
+                    "상품의 재고가 부족합니다. (현재 재고 수량 :" + this.stockNumber + ")");
         }
         /* 주문 후 남은 재고 수량을 상품의 현재 재고 값으로 할당함. */
         this.stockNumber = restStock;
@@ -85,6 +86,7 @@ public class Item extends BaseEntity {
 
     /* 상품의 재고를 증가시키는 메소드 */
     public void addStock(int stockNumber){
+
         this.stockNumber += stockNumber;
     }
 }

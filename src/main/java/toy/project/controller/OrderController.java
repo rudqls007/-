@@ -63,7 +63,8 @@ public class OrderController {
     }
 
     @GetMapping(value = {"/orders", "/orders/{page}"})
-    public String orderHist(@PathVariable("page") Optional<Integer> page, Principal principal, Model model){
+    public String orderHist(@PathVariable("page") Optional<Integer> page,
+                            Principal principal, Model model){
 
         /* 한 번에 가지고 올 주문 개수를 4개로 함 */
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
@@ -80,12 +81,14 @@ public class OrderController {
 
     /* 주문 취소 요청 메소드 ( 비동기 ) */
     @PostMapping("/order/{orderId}/cancel")
-    public @ResponseBody ResponseEntity cancelOrder(@PathVariable("orderId") Long orderId, Principal principal) {
+    public @ResponseBody ResponseEntity cancelOrder(
+            @PathVariable("orderId") Long orderId, Principal principal) {
 
         /* 자바스크립트에서 취소할 주문 번호는 조작이 가능하므로 다른 사람의 주문을 취소하지 못하도록
         *  주문 취소 권한을 검사함. */
         if (!orderService.validateOrder(orderId, principal.getName())) {
-            return  new ResponseEntity<String>("주문 취소 권한이 없습니다.",HttpStatus.FORBIDDEN);
+            return  new ResponseEntity<String>(
+                    "주문 취소 권한이 없습니다.",HttpStatus.FORBIDDEN);
         }
 
         /* 주문 취소 로직을 호출 */

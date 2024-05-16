@@ -85,11 +85,24 @@ public class MemberController {
         return "member/memberLoginForm";
     }
 
+    // !!!! OAuth로 로그인 시 이 방식대로 하면 CastException 발생함
+    @GetMapping("/form/loginInfo")
+    @ResponseBody
+    public String formLoginInfo(Authentication authentication, @AuthenticationPrincipal PrincipalDetails principalDetails){
 
+        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        String member = principal.getName();
+        System.out.println(member);
+
+        String user1 = principalDetails.getName();
+        System.out.println(user1);
+
+        return member.toString();
+    }
 
     @GetMapping("/oauth/loginInfo")
     @ResponseBody
-    public String oauthLoginInfo(Authentication authentication, @AuthenticationPrincipal OAuth2User oAuth2UserPrincipal) {
+    public String oauthLoginInfo(Authentication authentication, @AuthenticationPrincipal OAuth2User oAuth2UserPrincipal){
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         Map<String, Object> attributes = oAuth2User.getAttributes();
         System.out.println(attributes);
@@ -100,6 +113,22 @@ public class MemberController {
 
         return attributes.toString();     //세션에 담긴 user가져올 수 있음
     }
+
+    @GetMapping("/loginInfo")
+    @ResponseBody
+    public String loginInfo(Authentication authentication, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        String result = "";
+
+        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        if(principal.getName() == null) {
+            result = result + "Form 로그인 : " + principal;
+        }else{
+            result = result + "OAuth2 로그인 : " + principal;
+        }
+        return result;
+    }
+
+
 
 
     @GetMapping("/login/error")
@@ -140,7 +169,8 @@ public class MemberController {
 
     @GetMapping("/checkPwd")
     @ResponseBody
-    public boolean checkPassword(Principal principal, Member member, @RequestParam String checkPassword, Model model) {
+    public boolean checkPassword(Principal principal, Member member,
+                                 @RequestParam String checkPassword, Model model) {
 
         String loginId = principal.getName();
         Member memberId = memberRepository.findByLoginId(loginId);
